@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="20220601-01" author="dsugar">
+        <comment>Create table User</comment>
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_user" />
+            </column>
+            <column name="username" type="varchar(15)">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220601-02" author="dsugar">
+        <comment>Create table City</comment>
+        <createTable tableName="city">
+            <column name="postcode" type="int">
+                <constraints primaryKey="true" primaryKeyName="pk_city" />
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220601-03" author="dsugar">
+        <comment>Create table Subscriber</comment>
+        <createTable tableName="subscriber">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_subscriber" />
+            </column>
+            <column name="legal_entity" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="bigint"/>
+            <column name="last_update" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220601-04" author="dsugar">
+        <comment>Create table Contact Info</comment>
+        <createTable tableName="contact_info">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_contact_info" />
+            </column>
+            <column name="subscriber_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_info_subscriber" references="subscriber(id)"/>
+            </column>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="company_name" type="varchar(70)"/>
+            <column name="oib" type="char(11)">
+                <constraints unique="true" uniqueConstraintName="uq_subscriber_oib"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone1" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone2" type="varchar(50)"/>
+            <column name="billing_address" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="postcode" type="int">
+                <constraints nullable="false" foreignKeyName="fk_info_subscriber_postcode" references="city(postcode)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220601-05" author="dsugar">
+        <comment>Create table Ticket</comment>
+        <createTable tableName="ticket">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_ticket" />
+            </column>
+            <column name="subscriber_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_ticket_subscriber" references="subscriber(id)"/>
+            </column>
+            <column name="type" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="bigint"/>
+            <column name="last_update" type="timestamp"/>
+            <column name="resolved" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220601-06" author="dsugar">
+        <comment>Create table Publication</comment>
+        <createTable tableName="publication">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_publication" />
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(6,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="bigint"/>
+            <column name="last_update" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220601-07" author="dsugar">
+        <comment>Create table Publishing Info</comment>
+        <createTable tableName="publishing_info">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_publishing_info" />
+            </column>
+            <column name="publication_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_info_publication" references="publication(id)"/>
+            </column>
+            <column name="start_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="period" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="month" type="varchar(12)"/>
+            <column name="date_of_month" type="char(2)"/>
+            <column name="day_of_week" type="char(3)"/>
+            <column name="next_issue" type="date"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220601-08" author="dsugar">
+        <comment>Create table Subscription Type</comment>
+        <createTable tableName="subscription_type">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_subscription_type"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount" type="decimal(5,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="bigint"/>
+            <column name="last_update" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220601-09" author="dsugar">
+        <comment>Create table Subscription</comment>
+        <createTable tableName="subscription">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_subscription"/>
+            </column>
+            <column name="type_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="subcription_type" references="subscription_type(id)"/>
+            </column>
+            <column name="publication_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="subcription_publication" references="publication(id)"/>
+            </column>
+            <column name="subscriber_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="subcription_subscriber" references="subscriber(id)"/>
+            </column>
+            <column name="date_started" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_ended" type="date"/>
+            <column name="price" type="decimal(6,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="bigint"/>
+            <column name="last_update" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20220601-10" author="dsugar">
+        <comment>Create table Payment</comment>
+        <createTable tableName="payment">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_payment"/>
+            </column>
+            <column name="subscription_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="payment_subscription" references="subscription(id)"/>
+            </column>
+            <column name="subscriber_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="payment_subscriber" references="subscriber(id)"/>
+            </column>
+            <column name="amount" type="decimal(6,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="due_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="period" type="varchar(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_ended" type="date"/>
+            <column name="paid" type="boolean"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
