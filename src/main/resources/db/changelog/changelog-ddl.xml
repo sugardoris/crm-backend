@@ -25,6 +25,14 @@
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
+            <column name="created_by" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="bigint"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_update" type="timestamp"/>
         </createTable>
     </changeSet>
 
@@ -56,6 +64,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
             <column name="last_update" type="timestamp"/>
         </createTable>
     </changeSet>
@@ -106,14 +117,17 @@
             <column name="description" type="text">
                 <constraints nullable="false"/>
             </column>
+            <column name="resolved" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_by" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
-            <column name="last_update" type="timestamp"/>
-            <column name="resolved" type="boolean" defaultValueBoolean="false">
+            <column name="create_date" type="timestamp">
                 <constraints nullable="false"/>
             </column>
+            <column name="last_update" type="timestamp"/>
         </createTable>
     </changeSet>
 
@@ -139,6 +153,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
             <column name="last_update" type="timestamp"/>
         </createTable>
     </changeSet>
@@ -181,6 +198,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
             <column name="last_update" type="timestamp"/>
         </createTable>
     </changeSet>
@@ -211,6 +231,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
             <column name="last_update" type="timestamp"/>
         </createTable>
     </changeSet>
@@ -236,7 +259,6 @@
             <column name="period" type="varchar(45)">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_ended" type="date"/>
             <column name="paid" type="boolean"/>
         </createTable>
     </changeSet>
