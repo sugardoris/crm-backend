@@ -1,6 +1,6 @@
 package crm.crmbackend.service.implementation;
 
-import crm.crmbackend.controller.UserDTO;
+import crm.crmbackend.dto.UserDTO;
 import crm.crmbackend.entity.User;
 import crm.crmbackend.enumeration.Role;
 import crm.crmbackend.repository.UserRepository;

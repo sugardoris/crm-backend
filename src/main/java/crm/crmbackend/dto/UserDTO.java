@@ -1,4 +1,4 @@
-package crm.crmbackend.controller;
+package crm.crmbackend.dto;
 
 import crm.crmbackend.enumeration.Role;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class UserDTO {
     private String password;
 
     @NotBlank(message = "Name must not be empty")
-    @Length(max = 100, message = "Name too long")
+    @Length(max = 100, message = "User name too long")
     private String name;
 
     @NotNull(message = "Role must not be empty")

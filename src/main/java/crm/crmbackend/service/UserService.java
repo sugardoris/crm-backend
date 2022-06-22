@@ -1,6 +1,6 @@
 package crm.crmbackend.service;
 
-import crm.crmbackend.controller.UserDTO;
+import crm.crmbackend.dto.UserDTO;
 import crm.crmbackend.enumeration.Role;
 
 import java.util.List;
