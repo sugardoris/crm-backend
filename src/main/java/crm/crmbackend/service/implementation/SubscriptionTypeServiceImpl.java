@@ -1,7 +1,9 @@
 package crm.crmbackend.service.implementation;
 
 import crm.crmbackend.dto.SubscriptionTypeDTO;
+import crm.crmbackend.entity.Subscription;
 import crm.crmbackend.entity.SubscriptionType;
+import crm.crmbackend.repository.SubscriptionRepository;
 import crm.crmbackend.repository.SubscriptionTypeRepository;
 import crm.crmbackend.service.SubscriptionTypeService;
 import org.modelmapper.ModelMapper;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,12 +20,13 @@ import java.util.stream.Collectors;
 public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
 
     private final SubscriptionTypeRepository subscriptionTypeRepository;
-
+    private final SubscriptionRepository subscriptionRepository;
     private final ModelMapper mapper;
 
     @Autowired
-    public SubscriptionTypeServiceImpl(SubscriptionTypeRepository subscriptionTypeRepository, ModelMapper mapper) {
+    public SubscriptionTypeServiceImpl(SubscriptionTypeRepository subscriptionTypeRepository, SubscriptionRepository subscriptionRepository, ModelMapper mapper) {
         this.subscriptionTypeRepository = subscriptionTypeRepository;
+        this.subscriptionRepository = subscriptionRepository;
         this.mapper = mapper;
     }
 
@@ -39,6 +44,7 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
         return mapper.map(subscriptionType, SubscriptionTypeDTO.class);
     }
 
+    @Transactional
     @Override
     public SubscriptionTypeDTO saveSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO) {
         SubscriptionType savedSubscriptionType =
@@ -46,10 +52,17 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
         return mapper.map(savedSubscriptionType, SubscriptionTypeDTO.class);
     }
 
+    @Transactional
     @Override
     public void deactivateSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO) {
         subscriptionTypeDTO.setActive(false);
-        //TODO: find all active subscriptions with this subscription type and set them to default
         subscriptionTypeRepository.save(mapper.map(subscriptionTypeDTO, SubscriptionType.class));
+
+        //Set subscription type for all active subscriptions who are using this one to default
+        List<Subscription> activeSubscriptions = subscriptionRepository
+                .findAllBySubscriptionType_IdAndDateEndedAfter(subscriptionTypeDTO.getId(), LocalDate.now());
+        SubscriptionType defaultSubscription = subscriptionTypeRepository.findById(0L).orElseThrow(EntityNotFoundException::new);
+        activeSubscriptions.forEach(subscription -> subscription.setSubscriptionType(defaultSubscription));
+        subscriptionRepository.saveAll(activeSubscriptions);
     }
 }

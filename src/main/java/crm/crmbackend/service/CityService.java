@@ -9,6 +9,4 @@ public interface CityService {
     List<CityDTO> findAllCities();
 
     CityDTO addCity(CityDTO cityDTO);
-
-    void deleteCity(Long id);
 }

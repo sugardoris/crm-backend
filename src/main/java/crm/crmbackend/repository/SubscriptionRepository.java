@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
-    List<Subscription> findAllBySubscriptionType_IdAndDateEndedBefore(Long subscriptionTypeId, LocalDate dateEnded);
+    List<Subscription> findAllBySubscriptionType_IdAndDateEndedAfter(Long subscriptionTypeId, LocalDate dateEnded);
+
+    List<Subscription> findAllBySubscriber_Id(Long subscriberId);
 }

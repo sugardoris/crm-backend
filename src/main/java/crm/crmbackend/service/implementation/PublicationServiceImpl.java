@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,7 @@ public class PublicationServiceImpl implements PublicationService {
         return mapper.map(publication, PublicationDTO.class);
     }
 
+    @Transactional
     @Override
     public PublicationDTO savePublication(PublicationDTO publicationDTO) {
         if (publicationDTO.getId() != null) {
@@ -47,6 +49,7 @@ public class PublicationServiceImpl implements PublicationService {
         return mapper.map(savedPublication, PublicationDTO.class);
     }
 
+    @Transactional
     @Override
     public void archivePublication(PublicationDTO publicationDTO) {
         publicationDTO.setActive(false);

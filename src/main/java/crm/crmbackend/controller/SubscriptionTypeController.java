@@ -2,6 +2,7 @@ package crm.crmbackend.controller;
 
 import crm.crmbackend.dto.SubscriptionTypeDTO;
 import crm.crmbackend.service.SubscriptionTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ public class SubscriptionTypeController {
 
     private final SubscriptionTypeService subscriptionTypeService;
 
+    @Autowired
     public SubscriptionTypeController(SubscriptionTypeService subscriptionTypeService) {
         this.subscriptionTypeService = subscriptionTypeService;
     }

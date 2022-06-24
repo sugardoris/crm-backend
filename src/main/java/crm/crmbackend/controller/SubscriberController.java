@@ -1,7 +1,9 @@
 package crm.crmbackend.controller;
 
 import crm.crmbackend.dto.SubscriberDTO;
+import crm.crmbackend.dto.SubscriptionDTO;
 import crm.crmbackend.service.SubscriberService;
+import crm.crmbackend.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +22,12 @@ public class SubscriberController {
 
     private final SubscriberService subscriberService;
 
+    private final SubscriptionService subscriptionService;
+
     @Autowired
-    public SubscriberController(SubscriberService subscriberService) {
+    public SubscriberController(SubscriberService subscriberService, SubscriptionService subscriptionService) {
         this.subscriberService = subscriberService;
+        this.subscriptionService = subscriptionService;
     }
 
     @GetMapping
@@ -33,6 +38,11 @@ public class SubscriberController {
     @GetMapping("/{id}")
     public ResponseEntity<SubscriberDTO> fetchSubscriberDetails(@PathVariable Long id) {
         return ResponseEntity.ok(subscriberService.fetchSubscriberDetails(id));
+    }
+
+    @GetMapping("/{id}/subscriptions")
+    public ResponseEntity<List<SubscriptionDTO>> findAllSubscriptions(@PathVariable Long id) {
+        return ResponseEntity.ok(subscriptionService.findAllForSubscriber(id));
     }
 
     @PostMapping

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,12 +42,14 @@ public class UserServiceImpl implements UserService {
         return mapper.map(user, UserDTO.class);
     }
 
+    @Transactional
     @Override
     public UserDTO saveUser(UserDTO userDTO) {
         User savedUser = userRepository.save(mapper.map(userDTO, User.class));
         return mapper.map(savedUser, UserDTO.class);
     }
 
+    @Transactional
     @Override
     public void deactivateUser(UserDTO userDTO) {
         userDTO.setActive(false);
