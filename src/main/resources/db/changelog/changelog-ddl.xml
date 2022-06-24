@@ -262,4 +262,16 @@
             <column name="paid" type="boolean"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="20220623-01" author="dsugar">
+        <comment>Alter table Subscription Type</comment>
+        <addColumn tableName="subscription_type">
+            <column name="expiration_date" type="date"/>
+        </addColumn>
+        <addColumn tableName="subscription_type">
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

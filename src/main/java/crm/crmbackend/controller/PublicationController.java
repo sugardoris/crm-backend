@@ -42,6 +42,7 @@ public class PublicationController {
 
     @PostMapping("/archive")
     public ResponseEntity<Void> archivePublication(@RequestBody PublicationDTO publicationDTO) {
+        publicationService.archivePublication(publicationDTO);
         return ResponseEntity.noContent().build();
     }
 }

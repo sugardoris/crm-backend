@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,14 +30,10 @@ public class CityServiceImpl implements CityService {
         return cityRepository.findAll().stream().map(city -> mapper.map(city, CityDTO.class)).collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public CityDTO addCity(CityDTO cityDTO) {
         City savedCity = cityRepository.save(mapper.map(cityDTO, City.class));
         return mapper.map(savedCity, CityDTO.class);
-    }
-
-    @Override
-    public void deleteCity(Long id) {
-        cityRepository.deleteById(id);
     }
 }
