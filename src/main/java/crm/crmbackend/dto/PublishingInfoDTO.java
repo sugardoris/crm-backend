@@ -30,7 +30,4 @@ public class PublishingInfoDTO {
     @NotNull(message = "Price must not be empty")
     @Positive(message = "Price must be greater than zero")
     private BigDecimal price;
-
-    @NotNull
-    private Boolean active;
 }

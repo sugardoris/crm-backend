@@ -14,6 +14,9 @@ public class SubscriberDTO {
 
     private Long id;
 
+    @NotNull
+    private Boolean active;
+
     private Long createdBy;
 
     private Long updatedBy;

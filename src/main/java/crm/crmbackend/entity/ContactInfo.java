@@ -43,8 +43,6 @@ public class ContactInfo {
     
     private Boolean legalEntity;
 
-    private Boolean active;
-
     @ManyToOne
     @JoinColumn(name = "postcode", referencedColumnName = "postcode")
     private City city;

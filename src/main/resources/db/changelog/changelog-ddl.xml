@@ -54,6 +54,9 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_subscriber" />
             </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_by" type="bigint">
                 <constraints nullable="false"/>
             </column>
@@ -92,9 +95,6 @@
             </column>
             <column name="legal_entity" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false" />
-            </column>
-            <column name="active" type="boolean" defaultValueBoolean="true">
-                <constraints nullable="false"/>
             </column>
             <column name="postcode" type="int">
                 <constraints nullable="false" foreignKeyName="fk_info_subscriber_postcode" references="city(postcode)"/>
@@ -140,6 +140,9 @@
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
+            <column name="active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_by" type="bigint">
                 <constraints nullable="false"/>
             </column>
@@ -169,9 +172,6 @@
             <column name="comes_out" type="varchar(255)"/>
             <column name="next_issue" type="date"/>
             <column name="price" type="decimal(6,2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="active" type="boolean">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -26,6 +26,8 @@ public class Subscriber extends Tracker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Boolean active;
+
     @OneToOne(mappedBy = "subscriber")
     private ContactInfo contactInfo;
 

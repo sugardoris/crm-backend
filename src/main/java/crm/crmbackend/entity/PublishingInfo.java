@@ -39,8 +39,6 @@ public class PublishingInfo {
 
     private BigDecimal price;
 
-    private Boolean active;
-
     @OneToOne
     @JoinColumn(name = "publication_id", referencedColumnName = "id")
     private Publication publication;

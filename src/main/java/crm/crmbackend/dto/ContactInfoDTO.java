@@ -46,9 +46,6 @@ public class ContactInfoDTO {
     @NotNull
     private Boolean legalEntity;
 
-    @NotNull
-    private Boolean active;
-
     @NotNull(message = "City must not be null")
     private CityDTO city;
 }

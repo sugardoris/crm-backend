@@ -29,6 +29,8 @@ public class Publication extends Tracker {
 
     private String name;
 
+    private Boolean active;
+
     @OneToOne(mappedBy = "publication")
     private PublishingInfo publishingInfo;
 
