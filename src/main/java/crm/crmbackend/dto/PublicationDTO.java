@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -19,15 +18,13 @@ public class PublicationDTO {
     @NotBlank(message = "Name must not be empty")
     private String name;
 
-    @NotBlank(message = "Description must not be empty")
-    private String description;
+    private Long createdBy;
 
-    @NotNull(message = "Price must not be empty")
-    @Positive(message = "Price must be greater than zero")
-    private BigDecimal price;
+    private Long updatedBy;
 
-    @NotNull
-    private Boolean active;
+    private LocalDateTime createDate;
+
+    private LocalDateTime lastUpdate;
 
     @NotNull(message = "Publishing info must not be empty")
     private PublishingInfoDTO publishingInfo;

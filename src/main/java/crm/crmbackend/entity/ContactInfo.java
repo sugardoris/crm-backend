@@ -25,10 +25,6 @@ public class ContactInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "subscriber_id", referencedColumnName = "id")
-    private Subscriber subscriber;
-
     private String firstName;
 
     private String lastName;
@@ -44,8 +40,16 @@ public class ContactInfo {
     private String phone2;
 
     private String billingAddress;
+    
+    private Boolean legalEntity;
+
+    private Boolean active;
 
     @ManyToOne
     @JoinColumn(name = "postcode", referencedColumnName = "postcode")
     private City city;
+
+    @OneToOne
+    @JoinColumn(name = "subscriber_id", referencedColumnName = "id")
+    private Subscriber subscriber;
 }

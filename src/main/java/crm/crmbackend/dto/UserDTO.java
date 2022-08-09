@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -32,4 +33,12 @@ public class UserDTO {
 
     @NotNull
     private Boolean active;
+
+    private Long createdBy;
+
+    private Long updatedBy;
+
+    private LocalDateTime createDate;
+
+    private LocalDateTime lastUpdate;
 }

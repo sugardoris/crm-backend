@@ -1,5 +1,6 @@
 package crm.crmbackend.dto;
 
+import crm.crmbackend.enumeration.SubscriptionPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,17 @@ public class SubscriptionTypeDTO {
 
     private LocalDateTime expirationDate;
 
+    @NotNull(message = "Period must not be empty")
+    private SubscriptionPeriod subscriptionPeriod;
+
     @NotNull
     private boolean active;
+
+    private Long createdBy;
+
+    private Long updatedBy;
+
+    private LocalDateTime createDate;
+
+    private LocalDateTime lastUpdate;
 }

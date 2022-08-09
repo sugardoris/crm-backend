@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +17,7 @@ public class TicketDTO {
     private Long id;
 
     @NotNull(message = "A ticket must have a subscriber")
-    private SubscriberDTO subscriberDTO;
+    private Long subscriberId;
 
     @NotNull(message = "A ticket must have a type")
     private TicketType type;
@@ -26,4 +27,12 @@ public class TicketDTO {
 
     @NotNull
     private Boolean resolved;
+
+    private Long createdBy;
+
+    private Long updatedBy;
+
+    private LocalDateTime createDate;
+
+    private LocalDateTime lastUpdate;
 }

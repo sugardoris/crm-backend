@@ -1,12 +1,15 @@
 package crm.crmbackend.entity;
 
 import crm.crmbackend.common.Tracker;
+import crm.crmbackend.enumeration.SubscriptionPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +36,9 @@ public class SubscriptionType extends Tracker {
     private BigDecimal discount;
 
     private LocalDateTime expirationDate;
+
+    @Enumerated(EnumType.STRING)
+    private SubscriptionPeriod subscriptionPeriod;
 
     private boolean active;
 

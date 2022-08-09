@@ -54,12 +54,6 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_subscriber" />
             </column>
-            <column name="legal_entity" type="boolean" defaultValueBoolean="false">
-                <constraints nullable="false" />
-            </column>
-            <column name="active" type="boolean" defaultValueBoolean="true">
-                <constraints nullable="false"/>
-            </column>
             <column name="created_by" type="bigint">
                 <constraints nullable="false"/>
             </column>
@@ -94,6 +88,12 @@
             </column>
             <column name="phone2" type="varchar(50)"/>
             <column name="billing_address" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="legal_entity" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
             <column name="postcode" type="int">
@@ -140,15 +140,6 @@
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="text">
-                <constraints nullable="false"/>
-            </column>
-            <column name="price" type="decimal(6,2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="active" type="boolean">
-                <constraints nullable="false"/>
-            </column>
             <column name="created_by" type="bigint">
                 <constraints nullable="false"/>
             </column>
@@ -169,16 +160,20 @@
             <column name="publication_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_info_publication" references="publication(id)"/>
             </column>
-            <column name="start_date" type="date">
+            <column name="first_issue_date" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="period" type="varchar(50)">
+            <column name="issue_period" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="month" type="varchar(12)"/>
-            <column name="date_of_month" type="char(2)"/>
-            <column name="day_of_week" type="char(3)"/>
+            <column name="comes_out" type="varchar(255)"/>
             <column name="next_issue" type="date"/>
+            <column name="price" type="decimal(6,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -192,6 +187,14 @@
                 <constraints nullable="false"/>
             </column>
             <column name="discount" type="decimal(5,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiration_date" type="date">
+            </column>
+            <column name="subscription_period" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean">
                 <constraints nullable="false"/>
             </column>
             <column name="created_by" type="bigint">
@@ -236,42 +239,5 @@
             </column>
             <column name="last_update" type="timestamp"/>
         </createTable>
-    </changeSet>
-
-    <changeSet id="20220601-10" author="dsugar">
-        <comment>Create table Payment</comment>
-        <createTable tableName="payment">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_payment"/>
-            </column>
-            <column name="subscription_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="payment_subscription" references="subscription(id)"/>
-            </column>
-            <column name="subscriber_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="payment_subscriber" references="subscriber(id)"/>
-            </column>
-            <column name="amount" type="decimal(6,2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="due_date" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="period" type="varchar(45)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="paid" type="boolean"/>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="20220623-01" author="dsugar">
-        <comment>Alter table Subscription Type</comment>
-        <addColumn tableName="subscription_type">
-            <column name="expiration_date" type="date"/>
-        </addColumn>
-        <addColumn tableName="subscription_type">
-            <column name="active" type="boolean" defaultValueBoolean="true">
-                <constraints nullable="false"/>
-            </column>
-        </addColumn>
     </changeSet>
 </databaseChangeLog>

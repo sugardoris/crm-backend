@@ -1,7 +1,6 @@
 package crm.crmbackend.entity;
 
-
-import crm.crmbackend.enumeration.Period;
+import crm.crmbackend.enumeration.PublicationPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -28,20 +28,20 @@ public class PublishingInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private LocalDate firstIssueDate;
+
+    @Enumerated(EnumType.STRING)
+    private PublicationPeriod issuePeriod;
+
+    private String comesOut;
+
+    private LocalDate nextIssue;
+
+    private BigDecimal price;
+
+    private Boolean active;
+
     @OneToOne
     @JoinColumn(name = "publication_id", referencedColumnName = "id")
     private Publication publication;
-
-    private LocalDate startDate;
-
-    @Enumerated(EnumType.STRING)
-    private Period period;
-
-    private String month;
-
-    private String dateOfMonth;
-
-    private String dayOfWeek;
-
-    private LocalDate nextIssue;
 }

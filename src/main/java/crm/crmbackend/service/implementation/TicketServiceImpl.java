@@ -1,7 +1,9 @@
 package crm.crmbackend.service.implementation;
 
 import crm.crmbackend.dto.TicketDTO;
+import crm.crmbackend.entity.Subscriber;
 import crm.crmbackend.entity.Ticket;
+import crm.crmbackend.repository.SubscriberRepository;
 import crm.crmbackend.repository.TicketRepository;
 import crm.crmbackend.service.TicketService;
 import org.modelmapper.ModelMapper;
@@ -16,12 +18,13 @@ import java.util.stream.Collectors;
 public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
-
+    private final SubscriberRepository subscriberRepository;
     private final ModelMapper mapper;
 
     @Autowired
-    public TicketServiceImpl(TicketRepository ticketRepository, ModelMapper mapper) {
+    public TicketServiceImpl(TicketRepository ticketRepository, SubscriberRepository subscriberRepository, ModelMapper mapper) {
         this.ticketRepository = ticketRepository;
+        this.subscriberRepository = subscriberRepository;
         this.mapper = mapper;
     }
 
@@ -41,7 +44,10 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketDTO saveTicket(TicketDTO ticketDTO) {
-        Ticket savedTicket = ticketRepository.save( mapper.map(ticketDTO, Ticket.class));
+        Subscriber subscriber = subscriberRepository.findById(ticketDTO.getSubscriberId()).orElseThrow(EntityNotFoundException::new);
+        Ticket ticket = mapper.map(ticketDTO, Ticket.class);
+        ticket.setSubscriber(subscriber);
+        Ticket savedTicket = ticketRepository.save(ticket);
         return mapper.map(savedTicket, TicketDTO.class);
     }
 

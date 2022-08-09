@@ -15,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
