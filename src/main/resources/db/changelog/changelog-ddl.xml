@@ -25,11 +25,11 @@
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="bigint">
+            <column name="created_by" type="bigint" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
-            <column name="create_date" type="timestamp">
+            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="last_update" type="timestamp"/>
@@ -57,11 +57,11 @@
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="bigint">
+            <column name="created_by" type="bigint" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
-            <column name="create_date" type="timestamp">
+            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="last_update" type="timestamp"/>
@@ -120,11 +120,11 @@
             <column name="resolved" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="bigint">
+            <column name="created_by" type="bigint" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
-            <column name="create_date" type="timestamp">
+            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="last_update" type="timestamp"/>
@@ -140,14 +140,14 @@
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="active" type="boolean">
+            <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="bigint">
+            <column name="created_by" type="bigint" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
-            <column name="create_date" type="timestamp">
+            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="last_update" type="timestamp"/>
@@ -170,7 +170,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="comes_out" type="varchar(255)"/>
-            <column name="next_issue" type="date"/>
             <column name="price" type="decimal(6,2)">
                 <constraints nullable="false"/>
             </column>
@@ -194,14 +193,14 @@
             <column name="subscription_period" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="active" type="boolean">
+            <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="bigint">
+            <column name="created_by" type="bigint" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
-            <column name="create_date" type="timestamp">
+            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="last_update" type="timestamp"/>
@@ -230,11 +229,11 @@
             <column name="price" type="decimal(6,2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="bigint">
+            <column name="created_by" type="bigint" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="updated_by" type="bigint"/>
-            <column name="create_date" type="timestamp">
+            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="last_update" type="timestamp"/>

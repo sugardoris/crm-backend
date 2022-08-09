@@ -35,8 +35,6 @@ public class PublishingInfo {
 
     private String comesOut;
 
-    private LocalDate nextIssue;
-
     private BigDecimal price;
 
     @OneToOne

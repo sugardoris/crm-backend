@@ -25,8 +25,6 @@ public class PublishingInfoDTO {
 
     private String comesOut;
 
-    private LocalDate nextIssue;
-
     @NotNull(message = "Price must not be empty")
     @Positive(message = "Price must be greater than zero")
     private BigDecimal price;
