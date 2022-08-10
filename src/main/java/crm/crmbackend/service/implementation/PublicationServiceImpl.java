@@ -42,7 +42,7 @@ public class PublicationServiceImpl implements PublicationService {
     @Transactional
     @Override
     public PublicationDTO savePublication(PublicationDTO publicationDTO) {
-        if (publicationDTO.getId() != null) {
+        if (publicationDTO.getActive() == null) {
             publicationDTO.setActive(true);
         }
         Publication savedPublication = publicationRepository.save(mapper.map(publicationDTO, Publication.class));

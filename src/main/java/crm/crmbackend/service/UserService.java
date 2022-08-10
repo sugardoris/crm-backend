@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface UserService {
 
-    List<UserDTO> findUsersByRole(Role role);
+    List<UserDTO> findAllUsers();
 
     UserDTO fetchUserDetails(Long id);
 
     UserDTO saveUser(UserDTO userDTO);
+
+    UserDTO updateUser(UserDTO userDTO);
 
     void deactivateUser(UserDTO userDTO);
 

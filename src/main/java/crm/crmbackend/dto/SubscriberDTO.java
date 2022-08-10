@@ -14,12 +14,11 @@ public class SubscriberDTO {
 
     private Long id;
 
-    @NotNull
     private Boolean active;
 
-    private Long createdBy;
+    private String createdBy;
 
-    private Long updatedBy;
+    private String updatedBy;
 
     private LocalDateTime createDate;
 

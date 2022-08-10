@@ -33,9 +33,9 @@ public class SubscriptionDTO {
     @NotNull(message = "Subscription must have a price")
     private BigDecimal price;
 
-    private Long createdBy;
+    private String createdBy;
 
-    private Long updatedBy;
+    private String updatedBy;
 
     private LocalDateTime createDate;
 

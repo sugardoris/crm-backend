@@ -49,6 +49,9 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Transactional
     @Override
     public SubscriberDTO saveSubscriber(SubscriberDTO subscriberDTO) {
+        if (subscriberDTO.getActive() == null) {
+            subscriberDTO.setActive(true);
+        }
         Subscriber savedSubscriber = subscriberRepository.save(mapper.map(subscriberDTO, Subscriber.class));
         return mapper.map(savedSubscriber, SubscriberDTO.class);
     }

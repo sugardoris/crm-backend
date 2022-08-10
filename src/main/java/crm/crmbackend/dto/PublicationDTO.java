@@ -18,12 +18,11 @@ public class PublicationDTO {
     @NotBlank(message = "Name must not be empty")
     private String name;
 
-    @NotNull
     private Boolean active;
 
-    private Long createdBy;
+    private String createdBy;
 
-    private Long updatedBy;
+    private String updatedBy;
 
     private LocalDateTime createDate;
 

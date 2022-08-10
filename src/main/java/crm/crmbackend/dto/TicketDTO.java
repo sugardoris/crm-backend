@@ -25,12 +25,11 @@ public class TicketDTO {
     @NotBlank(message = "Ticket description must not be empty")
     private String description;
 
-    @NotNull
     private Boolean resolved;
 
-    private Long createdBy;
+    private String createdBy;
 
-    private Long updatedBy;
+    private String updatedBy;
 
     private LocalDateTime createDate;
 

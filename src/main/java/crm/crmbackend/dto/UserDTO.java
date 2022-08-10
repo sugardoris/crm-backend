@@ -28,15 +28,13 @@ public class UserDTO {
     @Length(max = 100, message = "User name too long")
     private String name;
 
-    @NotNull(message = "Role must not be empty")
     private Role role;
 
-    @NotNull
     private Boolean active;
 
-    private Long createdBy;
+    private String createdBy;
 
-    private Long updatedBy;
+    private String updatedBy;
 
     private LocalDateTime createDate;
 

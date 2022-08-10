@@ -106,7 +106,7 @@
         </insert>
 
         <insert tableName="publication">
-            <column name="name" value="Gossip Magazine"/>
+            <column name="name" value="Weekly Political"/>
         </insert>
 
         <insert tableName="publication">
@@ -120,7 +120,7 @@
             <column name="first_issue_date" value="1989-05-02"/>
             <column name="issue_period" value="DAILY"/>
             <column name="comes_out" value="Every day"/>
-            <column name="price" value="1.50"/>
+            <column name="price" value="1.20"/>
         </insert>
 
         <insert tableName="publishing_info">
@@ -128,7 +128,7 @@
             <column name="first_issue_date" value="2000-03-02"/>
             <column name="issue_period" value="WEEKLY"/>
             <column name="comes_out" value="Every week on wednesdays"/>
-            <column name="price" value="1.80"/>
+            <column name="price" value="2.00"/>
         </insert>
 
         <insert tableName="publishing_info">
@@ -136,20 +136,20 @@
             <column name="first_issue_date" value="2005-07-02"/>
             <column name="issue_period" value="MONTHLY"/>
             <column name="comes_out" value="Every second tuesday of the month"/>
-            <column name="price" value="2.30"/>
+            <column name="price" value="2.50"/>
         </insert>
     </changeSet>
 
     <changeSet id="20220809-01-subscription-type" author="dsugar">
         <insert tableName="subscription_type">
             <column name="name" value="Default monthly"/>
-            <column name="discount" value="10.00"/>
+            <column name="discount" value="15.00"/>
             <column name="subscription_period" value="MONTHLY"/>
         </insert>
 
         <insert tableName="subscription_type">
             <column name="name" value="Default annually"/>
-            <column name="discount" value="20.00"/>
+            <column name="discount" value="25.00"/>
             <column name="subscription_period" value="ANNUALY"/>
         </insert>
     </changeSet>
@@ -197,6 +197,90 @@
             <column name="phone1" value="01 234 5678"/>
             <column name="billing_address" value="Adresa Firme 123"/>
             <column name="postcode" value="10410"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="20220809-01-subscription-data" author="dsugar">
+        <insert tableName="subscription">
+            <column name="type_id" value="1"/>
+            <column name="publication_id" value="1"/>
+            <column name="subscriber_id" value="1"/>
+            <column name="date_started" value="2020-01-02"/>
+            <column name="price" value="30.60"/>
+        </insert>
+
+        <insert tableName="subscription">
+            <column name="type_id" value="1"/>
+            <column name="publication_id" value="2"/>
+            <column name="subscriber_id" value="1"/>
+            <column name="date_started" value="2020-01-02"/>
+            <column name="price" value="6.80"/>
+        </insert>
+
+        <insert tableName="subscription">
+            <column name="type_id" value="1"/>
+            <column name="publication_id" value="2"/>
+            <column name="subscriber_id" value="2"/>
+            <column name="date_started" value="2020-01-02"/>
+            <column name="price" value="30.60"/>
+        </insert>
+
+        <insert tableName="subscription">
+            <column name="type_id" value="2"/>
+            <column name="publication_id" value="3"/>
+            <column name="subscriber_id" value="2"/>
+            <column name="date_started" value="2020-01-02"/>
+            <column name="price" value="22.50"/>
+        </insert>
+
+        <insert tableName="subscription">
+            <column name="type_id" value="2"/>
+            <column name="publication_id" value="1"/>
+            <column name="subscriber_id" value="3"/>
+            <column name="date_started" value="2020-01-02"/>
+            <column name="price" value="324.00"/>
+        </insert>
+
+        <insert tableName="subscription">
+            <column name="type_id" value="2"/>
+            <column name="publication_id" value="2"/>
+            <column name="subscriber_id" value="3"/>
+            <column name="date_started" value="2020-01-02"/>
+            <column name="price" value="72.00"/>
+        </insert>
+
+        <insert tableName="subscription">
+            <column name="type_id" value="2"/>
+            <column name="publication_id" value="3"/>
+            <column name="subscriber_id" value="3"/>
+            <column name="date_started" value="2020-01-02"/>
+            <column name="price" value="22.50"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="20220809-01-ticket-data" author="dsugar">
+        <insert tableName="ticket">
+            <column name="subscriber_id" value="1"/>
+            <column name="type" value="INFO"/>
+            <column name="description" value="Nunc nizzle lorizzle, pulvinizzle phat, gangsta eget, vehicula da bomb, diam. Ghetto sizzle leo hizzle sizzle hendrerizzle mattis. Pellentesque yo mamma fizzle izzle eros commodo fo shizzle my nizzle. Etizzle sizzle fermentizzle tellivizzle. Crazy own yo. Maecenizzle gangster metizzle ac dolizzle iaculis auctizzle. Ass sagittizzle dawg urna."/>
+        </insert>
+
+        <insert tableName="ticket">
+            <column name="subscriber_id" value="1"/>
+            <column name="type" value="COMPLAINT"/>
+            <column name="description" value="Nunc nizzle lorizzle, pulvinizzle phat, gangsta eget, vehicula da bomb, diam. Ghetto sizzle leo hizzle sizzle hendrerizzle mattis. Pellentesque yo mamma fizzle izzle eros commodo fo shizzle my nizzle. Etizzle sizzle fermentizzle tellivizzle. Crazy own yo. Maecenizzle gangster metizzle ac dolizzle iaculis auctizzle. Ass sagittizzle dawg urna."/>
+        </insert>
+
+        <insert tableName="ticket">
+            <column name="subscriber_id" value="2"/>
+            <column name="type" value="NEW"/>
+            <column name="description" value="Nunc nizzle lorizzle, pulvinizzle phat, gangsta eget, vehicula da bomb, diam. Ghetto sizzle leo hizzle sizzle hendrerizzle mattis. Pellentesque yo mamma fizzle izzle eros commodo fo shizzle my nizzle. Etizzle sizzle fermentizzle tellivizzle. Crazy own yo. Maecenizzle gangster metizzle ac dolizzle iaculis auctizzle. Ass sagittizzle dawg urna."/>
+        </insert>
+
+        <insert tableName="ticket">
+            <column name="subscriber_id" value="3"/>
+            <column name="type" value="PAYMENT"/>
+            <column name="description" value="Nunc nizzle lorizzle, pulvinizzle phat, gangsta eget, vehicula da bomb, diam. Ghetto sizzle leo hizzle sizzle hendrerizzle mattis. Pellentesque yo mamma fizzle izzle eros commodo fo shizzle my nizzle. Etizzle sizzle fermentizzle tellivizzle. Crazy own yo. Maecenizzle gangster metizzle ac dolizzle iaculis auctizzle. Ass sagittizzle dawg urna."/>
         </insert>
     </changeSet>
 </databaseChangeLog>

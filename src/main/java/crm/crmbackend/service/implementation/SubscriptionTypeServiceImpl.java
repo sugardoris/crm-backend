@@ -47,6 +47,9 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     @Transactional
     @Override
     public SubscriptionTypeDTO saveSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO) {
+        if (subscriptionTypeDTO.getActive() == null) {
+            subscriptionTypeDTO.setActive(true);
+        }
         SubscriptionType savedSubscriptionType =
                 subscriptionTypeRepository.save(mapper.map(subscriptionTypeDTO, SubscriptionType.class));
         return mapper.map(savedSubscriptionType, SubscriptionTypeDTO.class);
@@ -57,12 +60,11 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     public void deactivateSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO) {
         subscriptionTypeDTO.setActive(false);
         subscriptionTypeRepository.save(mapper.map(subscriptionTypeDTO, SubscriptionType.class));
-
-        //Set subscription type for all active subscriptions who are using this one to default
-        List<Subscription> activeSubscriptions = subscriptionRepository
-                .findAllBySubscriptionType_IdAndDateEndedAfter(subscriptionTypeDTO.getId(), LocalDate.now());
-        SubscriptionType defaultSubscription = subscriptionTypeRepository.findById(0L).orElseThrow(EntityNotFoundException::new);
-        activeSubscriptions.forEach(subscription -> subscription.setSubscriptionType(defaultSubscription));
-        subscriptionRepository.saveAll(activeSubscriptions);
+//        //Set subscription type for all active subscriptions who are using this one to default
+//        List<Subscription> activeSubscriptions = subscriptionRepository
+//                .findAllBySubscriptionType_IdAndDateEndedAfter(subscriptionTypeDTO.getId(), LocalDate.now());
+//        SubscriptionType defaultSubscription = subscriptionTypeRepository.findById(0L).orElseThrow(EntityNotFoundException::new);
+//        activeSubscriptions.forEach(subscription -> subscription.setSubscriptionType(defaultSubscription));
+//        subscriptionRepository.saveAll(activeSubscriptions);
     }
 }

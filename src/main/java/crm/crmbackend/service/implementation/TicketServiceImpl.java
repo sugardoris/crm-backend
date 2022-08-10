@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,21 +43,27 @@ public class TicketServiceImpl implements TicketService {
         return mapper.map(ticket, TicketDTO.class);
     }
 
+    @Transactional
     @Override
     public TicketDTO saveTicket(TicketDTO ticketDTO) {
         Subscriber subscriber = subscriberRepository.findById(ticketDTO.getSubscriberId()).orElseThrow(EntityNotFoundException::new);
         Ticket ticket = mapper.map(ticketDTO, Ticket.class);
         ticket.setSubscriber(subscriber);
+        if (ticketDTO.getResolved() == null) {
+            ticket.setResolved(false);
+        }
         Ticket savedTicket = ticketRepository.save(ticket);
         return mapper.map(savedTicket, TicketDTO.class);
     }
 
+    @Transactional
     @Override
     public void resolveTicket(TicketDTO ticketDTO) {
         ticketDTO.setResolved(true);
         ticketRepository.save( mapper.map(ticketDTO, Ticket.class));
     }
 
+    @Transactional
     @Override
     public void deleteTicket(Long id) {
         ticketRepository.deleteById(id);

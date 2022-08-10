@@ -31,12 +31,11 @@ public class SubscriptionTypeDTO {
     @NotNull(message = "Period must not be empty")
     private SubscriptionPeriod subscriptionPeriod;
 
-    @NotNull
-    private boolean active;
+    private Boolean active;
 
-    private Long createdBy;
+    private String createdBy;
 
-    private Long updatedBy;
+    private String updatedBy;
 
     private LocalDateTime createDate;
 

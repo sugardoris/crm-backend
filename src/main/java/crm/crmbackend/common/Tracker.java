@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
 public abstract class Tracker {
 
     @Column(name = "created_by")
-    private Long createdBy;
+    private String createdBy;
 
     @Column(name = "updated_by")
-    private Long updatedBy;
+    private String updatedBy;
 
     @Column(name = "create_date")
     private LocalDateTime createDate;
@@ -34,9 +34,9 @@ public abstract class Tracker {
             lastUpdate = createDate;
         }
         if (createdBy == null) {
-            User user = SecurityUtils.getCurrentUser();
-            if(user != null) {
-                createdBy = user.getId();
+            String currentUser = SecurityUtils.getCurrentUserUsername();
+            if(currentUser != "anonymous") {
+                createdBy = currentUser;
                 updatedBy = createdBy;
             } else {
                 throw new AuthenticationCredentialsNotFoundException("Currently logged in user not found.");
@@ -47,9 +47,9 @@ public abstract class Tracker {
     @PreUpdate
     protected void preUpdate() throws AuthenticationCredentialsNotFoundException {
         lastUpdate = LocalDateTime.now();
-        User user = SecurityUtils.getCurrentUser();
-        if(user != null) {
-            updatedBy = user.getId();
+        String currentUser = SecurityUtils.getCurrentUserUsername();
+        if(currentUser != "anonymous") {
+            updatedBy = currentUser;
         } else {
             throw new AuthenticationCredentialsNotFoundException("Currently logged in user not found.");
         }
