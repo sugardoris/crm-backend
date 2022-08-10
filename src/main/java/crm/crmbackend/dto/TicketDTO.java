@@ -16,7 +16,6 @@ public class TicketDTO {
 
     private Long id;
 
-    @NotNull(message = "A ticket must have a subscriber")
     private Long subscriberId;
 
     @NotNull(message = "A ticket must have a type")

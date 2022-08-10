@@ -16,13 +16,10 @@ public class SubscriptionDTO {
 
     private Long id;
 
-    @NotNull(message = "Subscription type must not be empty")
-    private SubscriptionTypeDTO subscriptionType;
+    private Long subscriptionTypeId;
 
-    @NotNull(message = "Subscription must have a subscriber")
     private Long subscriberId;
 
-    @NotNull(message = "Subscription must have a publication")
     private Long publicationId;
 
     @NotNull(message = "Subscription must have a starting date")

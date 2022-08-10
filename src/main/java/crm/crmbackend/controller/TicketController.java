@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,9 +36,14 @@ public class TicketController {
         return ResponseEntity.ok(ticketService.saveTicket(ticketDTO));
     }
 
-    @PostMapping("/resolve")
-    public ResponseEntity<Void> resolveTicket(@RequestBody TicketDTO ticketDTO) {
-        ticketService.resolveTicket(ticketDTO);
+    @PutMapping
+    public ResponseEntity<TicketDTO> updateTicket(@Valid @RequestBody TicketDTO ticketDTO) {
+        return ResponseEntity.ok(ticketService.updateTicket(ticketDTO));
+    }
+
+    @PostMapping("/{id}/resolve")
+    public ResponseEntity<Void> resolveTicket(@PathVariable Long id) {
+        ticketService.resolveTicket(id);
         return ResponseEntity.noContent().build();
     }
 

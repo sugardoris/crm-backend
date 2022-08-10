@@ -2,7 +2,6 @@ package crm.crmbackend.enumeration;
 
 public enum SubscriptionPeriod {
     MONTHLY("Monthly"),
-    TRIMONTHLY("Every three months"),
     BIANNUALY("Every six months"),
     ANNUALY("Yearly");
 

@@ -1,6 +1,7 @@
 package crm.crmbackend.service;
 
 import crm.crmbackend.dto.TicketDTO;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -12,7 +13,9 @@ public interface TicketService {
 
     TicketDTO saveTicket(TicketDTO ticketDTO);
 
-    void resolveTicket(TicketDTO ticketDTO);
+    TicketDTO updateTicket(TicketDTO ticketDTO);
+
+    void resolveTicket(Long id);
 
     void deleteTicket(Long id);
 }

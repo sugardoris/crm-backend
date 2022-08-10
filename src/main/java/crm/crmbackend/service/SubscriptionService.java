@@ -11,4 +11,6 @@ public interface SubscriptionService {
     SubscriptionDTO fetchSubscriptionDetails(Long id);
 
     SubscriptionDTO saveSubscription(SubscriptionDTO subscriptionDTO);
+
+    SubscriptionDTO updateSubscription(SubscriptionDTO subscriptionDTO);
 }

@@ -9,6 +9,7 @@ import crm.crmbackend.service.TicketService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -46,24 +47,35 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
     @Override
     public TicketDTO saveTicket(TicketDTO ticketDTO) {
-        Subscriber subscriber = subscriberRepository.findById(ticketDTO.getSubscriberId()).orElseThrow(EntityNotFoundException::new);
         Ticket ticket = mapper.map(ticketDTO, Ticket.class);
+        ticket.setResolved(false);
+
+        Subscriber subscriber = subscriberRepository.findById(ticketDTO.getSubscriberId()).orElseThrow(EntityNotFoundException::new);
         ticket.setSubscriber(subscriber);
-        if (ticketDTO.getResolved() == null) {
-            ticket.setResolved(false);
-        }
+
         Ticket savedTicket = ticketRepository.save(ticket);
         return mapper.map(savedTicket, TicketDTO.class);
     }
 
-    @Transactional
     @Override
-    public void resolveTicket(TicketDTO ticketDTO) {
-        ticketDTO.setResolved(true);
-        ticketRepository.save( mapper.map(ticketDTO, Ticket.class));
+    public TicketDTO updateTicket(TicketDTO ticketDTO) {
+        Ticket ticket = ticketRepository.findById(ticketDTO.getId()).orElseThrow(EntityNotFoundException::new);
+
+        ticket.setType(ticketDTO.getType());
+        ticket.setDescription(ticketDTO.getDescription());
+        ticket.setResolved(ticketDTO.getResolved());
+
+        Ticket savedTicket = ticketRepository.save(ticket);
+        return mapper.map(savedTicket, TicketDTO.class);
     }
 
-    @Transactional
+    @Override
+    public void resolveTicket(Long id) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        ticket.setResolved(true);
+        ticketRepository.save(ticket);
+    }
+
     @Override
     public void deleteTicket(Long id) {
         ticketRepository.deleteById(id);
