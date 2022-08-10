@@ -61,7 +61,7 @@ public class PublicationServiceImpl implements PublicationService {
         Publication publication = publicationRepository.findById(publicationDTO.getId()).orElseThrow(EntityNotFoundException::new);
         publication.setName(publicationDTO.getName());
 
-        PublishingInfo publishingInfo = publishingInfoService.updatePublishingInfo(publicationDTO.getPublishingInfo());
+        PublishingInfo publishingInfo = publishingInfoService.savePublishingInfo(publicationDTO.getPublishingInfo());
         publication.setPublishingInfo(publishingInfo);
 
         Publication savedPublication = publicationRepository.save(publication);

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 @Service
 public class PublishingInfoServiceImpl implements PublishingInfoService {
@@ -23,19 +24,10 @@ public class PublishingInfoServiceImpl implements PublishingInfoService {
         this.modelMapper = modelMapper;
     }
 
+    @Transactional
     @Override
     public PublishingInfo savePublishingInfo(PublishingInfoDTO publishingInfoDTO) {
         PublishingInfo publishingInfo = publishingInfoRepository.save(modelMapper.map(publishingInfoDTO, PublishingInfo.class));
         return publishingInfo;
-    }
-
-    @Override
-    public PublishingInfo updatePublishingInfo(PublishingInfoDTO publishingInfoDTO) {
-        PublishingInfo publishingInfo = publishingInfoRepository.findById(publishingInfoDTO.getId()).orElseThrow(EntityNotFoundException::new);
-        publishingInfo.setFirstIssueDate(publishingInfoDTO.getFirstIssueDate());
-        publishingInfo.setIssuePeriod(publishingInfoDTO.getIssuePeriod());
-        publishingInfo.setComesOut(publishingInfoDTO.getComesOut());
-        publishingInfo.setPrice(publishingInfoDTO.getPrice());
-        return publishingInfoRepository.save(publishingInfo);
     }
 }

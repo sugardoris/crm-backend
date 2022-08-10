@@ -47,24 +47,31 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     @Transactional
     @Override
     public SubscriptionTypeDTO saveSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO) {
-        if (subscriptionTypeDTO.getActive() == null) {
-            subscriptionTypeDTO.setActive(true);
-        }
+        SubscriptionType subscriptionType = mapper.map(subscriptionTypeDTO, SubscriptionType.class);
+        subscriptionType.setActive(true);
+
         SubscriptionType savedSubscriptionType =
-                subscriptionTypeRepository.save(mapper.map(subscriptionTypeDTO, SubscriptionType.class));
+                subscriptionTypeRepository.save(subscriptionType);
         return mapper.map(savedSubscriptionType, SubscriptionTypeDTO.class);
     }
 
-    @Transactional
     @Override
-    public void deactivateSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO) {
-        subscriptionTypeDTO.setActive(false);
-        subscriptionTypeRepository.save(mapper.map(subscriptionTypeDTO, SubscriptionType.class));
-//        //Set subscription type for all active subscriptions who are using this one to default
-//        List<Subscription> activeSubscriptions = subscriptionRepository
-//                .findAllBySubscriptionType_IdAndDateEndedAfter(subscriptionTypeDTO.getId(), LocalDate.now());
-//        SubscriptionType defaultSubscription = subscriptionTypeRepository.findById(0L).orElseThrow(EntityNotFoundException::new);
-//        activeSubscriptions.forEach(subscription -> subscription.setSubscriptionType(defaultSubscription));
-//        subscriptionRepository.saveAll(activeSubscriptions);
+    public SubscriptionTypeDTO updateSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO) {
+        SubscriptionType subscriptionType = subscriptionTypeRepository.findById(subscriptionTypeDTO.getId())
+                .orElseThrow(EntityNotFoundException::new);
+        subscriptionType.setName(subscriptionTypeDTO.getName());
+        subscriptionType.setDiscount(subscriptionTypeDTO.getDiscount());
+        subscriptionType.setSubscriptionPeriod(subscriptionTypeDTO.getSubscriptionPeriod());
+
+        SubscriptionType savedSubscriptionType =
+                subscriptionTypeRepository.save(subscriptionType);
+        return mapper.map(savedSubscriptionType, SubscriptionTypeDTO.class);
+    }
+
+    @Override
+    public void deactivateSubscriptionType(Long id) {
+        SubscriptionType subscriptionType = subscriptionTypeRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        subscriptionType.setActive(false);
+        subscriptionTypeRepository.save(subscriptionType);
     }
 }

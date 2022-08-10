@@ -7,5 +7,4 @@ public interface PublishingInfoService {
 
     PublishingInfo savePublishingInfo(PublishingInfoDTO publishingInfoDTO);
 
-    PublishingInfo updatePublishingInfo(PublishingInfoDTO publishingInfoDTO);
 }

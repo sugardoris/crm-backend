@@ -35,8 +35,6 @@ public class SubscriptionType extends Tracker {
 
     private BigDecimal discount;
 
-    private LocalDateTime expirationDate;
-
     @Enumerated(EnumType.STRING)
     private SubscriptionPeriod subscriptionPeriod;
 

@@ -188,8 +188,6 @@
             <column name="discount" type="decimal(5,2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="expiration_date" type="date">
-            </column>
             <column name="subscription_period" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>

@@ -26,8 +26,6 @@ public class SubscriptionTypeDTO {
     @PositiveOrZero
     private BigDecimal discount;
 
-    private LocalDateTime expirationDate;
-
     @NotNull(message = "Period must not be empty")
     private SubscriptionPeriod subscriptionPeriod;
 

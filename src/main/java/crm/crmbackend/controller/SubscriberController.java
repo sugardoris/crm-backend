@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,6 +59,11 @@ public class SubscriberController {
     @PostMapping
     public ResponseEntity<SubscriberDTO> saveSubscriber(@Valid @RequestBody SubscriberDTO subscriberDTO) {
         return ResponseEntity.ok(subscriberService.saveSubscriber(subscriberDTO));
+    }
+
+    @PutMapping
+    public ResponseEntity<SubscriberDTO> updateSubscriber(@Valid @RequestBody SubscriberDTO subscriberDTO) {
+        return ResponseEntity.ok(subscriberService.updateSubscriber(subscriberDTO));
     }
 
     @PostMapping("/{id}/deactivate")
