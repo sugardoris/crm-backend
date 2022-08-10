@@ -47,7 +47,6 @@ public class ContactInfo {
     @JoinColumn(name = "postcode", referencedColumnName = "postcode")
     private City city;
 
-    @OneToOne
-    @JoinColumn(name = "subscriber_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "contactInfo")
     private Subscriber subscriber;
 }

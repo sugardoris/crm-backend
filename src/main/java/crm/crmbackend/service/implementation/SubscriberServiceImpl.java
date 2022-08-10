@@ -1,10 +1,12 @@
 package crm.crmbackend.service.implementation;
 
 import crm.crmbackend.dto.SubscriberDTO;
+import crm.crmbackend.entity.ContactInfo;
 import crm.crmbackend.entity.Subscriber;
 import crm.crmbackend.entity.Subscription;
 import crm.crmbackend.repository.SubscriberRepository;
 import crm.crmbackend.repository.SubscriptionRepository;
+import crm.crmbackend.service.ContactInfoService;
 import crm.crmbackend.service.SubscriberService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,16 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     private final SubscriptionRepository subscriptionRepository;
 
+    private final ContactInfoService contactInfoService;
+
     private final ModelMapper mapper;
 
     @Autowired
-    public SubscriberServiceImpl(SubscriberRepository subscriberRepository, SubscriptionRepository subscriptionRepository, ModelMapper mapper) {
+    public SubscriberServiceImpl(SubscriberRepository subscriberRepository, SubscriptionRepository subscriptionRepository,
+                                 ContactInfoService contactInfoService, ModelMapper mapper) {
         this.subscriberRepository = subscriberRepository;
         this.subscriptionRepository = subscriptionRepository;
+        this.contactInfoService = contactInfoService;
         this.mapper = mapper;
     }
 
@@ -49,21 +55,35 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Transactional
     @Override
     public SubscriberDTO saveSubscriber(SubscriberDTO subscriberDTO) {
-        if (subscriberDTO.getActive() == null) {
-            subscriberDTO.setActive(true);
-        }
-        Subscriber savedSubscriber = subscriberRepository.save(mapper.map(subscriberDTO, Subscriber.class));
+        Subscriber subscriber = mapper.map(subscriberDTO, Subscriber.class);
+        subscriber.setActive(true);
+
+        ContactInfo contactInfo = contactInfoService.saveContactInfo(subscriberDTO.getContactInfo());
+        subscriber.setContactInfo(contactInfo);
+
+        Subscriber savedSubscriber = subscriberRepository.save(subscriber);
         return mapper.map(savedSubscriber, SubscriberDTO.class);
     }
 
-    @Transactional
     @Override
-    public void deactivateSubscriber(SubscriberDTO subscriberDTO) {
-        subscriberDTO.setActive(false);
-        subscriberRepository.save(mapper.map(subscriberDTO, Subscriber.class));
+    public SubscriberDTO updateSubscriber(SubscriberDTO subscriberDTO) {
+        Subscriber subscriber = subscriberRepository.findById(subscriberDTO.getId()).orElseThrow(EntityNotFoundException::new);
+
+        ContactInfo contactInfo = contactInfoService.saveContactInfo(subscriberDTO.getContactInfo());
+        subscriber.setContactInfo(contactInfo);
+
+        Subscriber savedSubscriber = subscriberRepository.save(subscriber);
+        return mapper.map(savedSubscriber, SubscriberDTO.class);
+    }
+
+    @Override
+    public void deactivateSubscriber(Long id) {
+        Subscriber subscriber = subscriberRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        subscriber.setActive(false);
+        subscriberRepository.save(subscriber);
 
         //Deactivate all subscriptions for this subscriber
-        List<Subscription> activeSubscriptions = subscriptionRepository.findAllBySubscriber_Id(subscriberDTO.getId());
+        List<Subscription> activeSubscriptions = subscriptionRepository.findAllBySubscriber_Id(id);
         activeSubscriptions.stream()
                 .filter(subscription -> subscription.getDateEnded().isAfter(LocalDate.now()))
                 .forEach(subscription -> subscription.setDateEnded(LocalDate.now()));

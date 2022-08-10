@@ -60,9 +60,9 @@ public class SubscriberController {
         return ResponseEntity.ok(subscriberService.saveSubscriber(subscriberDTO));
     }
 
-    @PostMapping("/deactivate")
-    public ResponseEntity<Void> deactivateSubscriber(@RequestBody SubscriberDTO subscriberDTO) {
-        subscriberService.deactivateSubscriber(subscriberDTO);
+    @PostMapping("/{id}/deactivate")
+    public ResponseEntity<Void> deactivateSubscriber(@PathVariable Long id) {
+        subscriberService.deactivateSubscriber(id);
         return ResponseEntity.noContent().build();
     }
 }

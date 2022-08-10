@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,7 +29,8 @@ public class Subscriber extends Tracker {
 
     private Boolean active;
 
-    @OneToOne(mappedBy = "subscriber")
+    @OneToOne
+    @JoinColumn(name = "contact_info_id", referencedColumnName = "id")
     private ContactInfo contactInfo;
 
     @OneToMany(mappedBy = "subscriber")

@@ -47,9 +47,9 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(userDTO));
     }
 
-    @PostMapping("/deactivate")
-    public ResponseEntity<Void> deactivateUser(@RequestBody UserDTO userDTO) {
-        userService.deactivateUser(userDTO);
+    @PostMapping("/{id}/deactivate")
+    public ResponseEntity<Void> deactivateUser(@PathVariable Long id) {
+        userService.deactivateUser(id);
         return ResponseEntity.noContent().build();
     }
 }

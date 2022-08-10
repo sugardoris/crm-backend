@@ -1,6 +1,7 @@
 package crm.crmbackend.service;
 
 import crm.crmbackend.dto.PublicationDTO;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -12,5 +13,7 @@ public interface PublicationService {
 
     PublicationDTO savePublication(PublicationDTO publicationDTO);
 
-    void archivePublication(PublicationDTO publicationDTO);
+    PublicationDTO updatePublication(PublicationDTO publicationDTO);
+
+    void archivePublication(Long id);
 }

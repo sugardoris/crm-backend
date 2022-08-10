@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,9 +41,14 @@ public class PublicationController {
         return ResponseEntity.ok(publicationService.savePublication(publicationDTO));
     }
 
-    @PostMapping("/archive")
-    public ResponseEntity<Void> archivePublication(@RequestBody PublicationDTO publicationDTO) {
-        publicationService.archivePublication(publicationDTO);
+    @PutMapping
+    public ResponseEntity<PublicationDTO> updatePublication(@Valid @RequestBody PublicationDTO publicationDTO) {
+        return ResponseEntity.ok(publicationService.updatePublication(publicationDTO));
+    }
+
+    @PostMapping("/{id}/archive")
+    public ResponseEntity<Void> archivePublication(@PathVariable Long id) {
+        publicationService.archivePublication(id);
         return ResponseEntity.noContent().build();
     }
 }

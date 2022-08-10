@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -80,9 +81,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deactivateUser(UserDTO userDTO) {
-        userDTO.setActive(false);
-        userRepository.save(mapper.map(userDTO, User.class));
+    public void deactivateUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        user.setActive(false);
+        userRepository.save(user);
     }
 
     private void checkIfUserAlreadyExists(UserDTO userDTO) throws EntityExistsException {

@@ -37,7 +37,6 @@ public class PublishingInfo {
 
     private BigDecimal price;
 
-    @OneToOne
-    @JoinColumn(name = "publication_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "publishingInfo")
     private Publication publication;
 }
