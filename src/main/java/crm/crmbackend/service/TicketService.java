@@ -1,7 +1,6 @@
 package crm.crmbackend.service;
 
 import crm.crmbackend.dto.TicketDTO;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 

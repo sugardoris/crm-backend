@@ -1,7 +1,6 @@
 package crm.crmbackend.service.implementation;
 
 import crm.crmbackend.dto.SubscriptionTypeDTO;
-import crm.crmbackend.entity.Subscription;
 import crm.crmbackend.entity.SubscriptionType;
 import crm.crmbackend.repository.SubscriptionRepository;
 import crm.crmbackend.repository.SubscriptionTypeRepository;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

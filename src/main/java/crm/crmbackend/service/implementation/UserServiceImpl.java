@@ -2,14 +2,12 @@ package crm.crmbackend.service.implementation;
 
 import crm.crmbackend.dto.UserDTO;
 import crm.crmbackend.entity.User;
-import crm.crmbackend.enumeration.Role;
 import crm.crmbackend.repository.UserRepository;
 import crm.crmbackend.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;

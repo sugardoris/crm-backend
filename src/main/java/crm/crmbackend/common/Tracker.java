@@ -1,6 +1,5 @@
 package crm.crmbackend.common;
 
-import crm.crmbackend.entity.User;
 import crm.crmbackend.security.SecurityUtils;
 import lombok.Data;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;

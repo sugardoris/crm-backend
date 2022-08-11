@@ -27,7 +27,6 @@ public class SubscriptionDTO {
 
     private LocalDate dateEnded;
 
-    @NotNull(message = "Subscription must have a price")
     private BigDecimal price;
 
     private String createdBy;

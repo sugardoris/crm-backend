@@ -8,12 +8,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -45,6 +44,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .disable()
                 .authorizeRequests()
                     .antMatchers("/api/authenticate").permitAll()
+                    .antMatchers("/api/subscribers/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
+                    .antMatchers("/api/subscriptions/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
+                    .antMatchers("/api/tickets/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
+                    .antMatchers(HttpMethod.GET,"/api/cities").hasAnyAuthority("ADMIN", "EMPLOYEE")
+                    .antMatchers(HttpMethod.POST,"/api/cities").hasAuthority("ADMIN")
+                    .antMatchers(HttpMethod.GET,"/api/publications/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
+                    .antMatchers(HttpMethod.POST,"/api/publications/**").hasAuthority("ADMIN")
+                    .antMatchers(HttpMethod.PUT,"/api/publications").hasAuthority("ADMIN")
+                    .antMatchers(HttpMethod.GET,"/api/subscription-types/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
+                    .antMatchers(HttpMethod.POST,"/api/subscription-types/**").hasAuthority("ADMIN")
+                    .antMatchers(HttpMethod.PUT,"/api/subscription-types").hasAuthority("ADMIN")
+                    .antMatchers(HttpMethod.GET,"/api/users/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
+                    .antMatchers(HttpMethod.POST,"/api/users/**").hasAuthority("ADMIN")
+                    .antMatchers(HttpMethod.PUT,"/api/users").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                 .exceptionHandling()

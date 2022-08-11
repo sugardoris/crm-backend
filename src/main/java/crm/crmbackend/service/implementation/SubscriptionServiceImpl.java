@@ -66,7 +66,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscription.setSubscriber(subscriber);
         subscription.setSubscriptionType(subscriptionType);
         subscription.setPrice(calculatePrice(subscription));
-        subscription.setDateEnded(subscriptionDTO.getDateEnded() != null ? subscription.getDateEnded() : null);
+        subscription.setDateEnded(subscriptionDTO.getDateEnded() != null ? subscriptionDTO.getDateEnded() : null);
 
         Subscription savedSubscription = subscriptionRepository.save(subscription);
         return mapper.map(savedSubscription, SubscriptionDTO.class);
@@ -80,7 +80,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             subscription.setSubscriptionType(subscriptionType);
             subscription.setPrice(calculatePrice(subscription));
         }
-        subscription.setDateEnded(subscriptionDTO.getDateEnded() != null ? subscription.getDateEnded() : null);
+        subscription.setDateEnded(subscriptionDTO.getDateEnded() != null ? subscriptionDTO.getDateEnded() : null);
         Subscription savedSubscription = subscriptionRepository.save(subscription);
         return mapper.map(savedSubscription, SubscriptionDTO.class);
     }
@@ -121,8 +121,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         }
     }
 
-    private BigDecimal calculateDiscountedPrice(BigDecimal price, BigDecimal discount) {
-        return price.multiply(discount).divide(new BigDecimal(100));
+    private BigDecimal calculateDiscountedPrice(BigDecimal price, BigDecimal discountPercentage) {
+        BigDecimal discount = price.multiply(discountPercentage).divide(new BigDecimal(100)).setScale(2);
+        return price.subtract(discount);
     }
 
 

@@ -1,7 +1,6 @@
 package crm.crmbackend.controller;
 
 import crm.crmbackend.dto.UserDTO;
-import crm.crmbackend.enumeration.Role;
 import crm.crmbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
