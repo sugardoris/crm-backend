@@ -10,6 +10,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -69,21 +70,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
 
+    @Override
+    public void configure(WebSecurity webSecurity) {
+        webSecurity.ignoring()
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .antMatchers("/h2-console/**");
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    @Order(Ordered.HIGHEST_PRECEDENCE)
-    public CorsFilter corsFilter(@Value("$(frontend-address") String frontendAdress) {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(List.of(frontendAdress));
-        corsConfiguration.setAllowedMethods(List.of("HEAD", "GET", "POST", "DELETE", "PUT"));
-        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
-
+    public CorsFilter corsFilter(@Value("${frontend-address}") String frontendAddress) {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(false);
+        corsConfiguration.addAllowedOrigin(frontendAddress);
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedHeader("*");
+
         source.registerCorsConfiguration("/**", corsConfiguration);
 
         return new CorsFilter(source);

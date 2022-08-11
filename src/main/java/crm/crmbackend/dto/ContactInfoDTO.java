@@ -32,7 +32,7 @@ public class ContactInfoDTO {
     @NotBlank(message = "Email must not be blank")
     private String email;
 
-    @NotBlank(message = "Email must not be blank")
+    @NotBlank(message = "Phone number must not be blank")
     @Length(max = 50, message = "Phone number too long")
     private String phone1;
 

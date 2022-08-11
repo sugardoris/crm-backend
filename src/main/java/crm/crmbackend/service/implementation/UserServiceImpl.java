@@ -44,6 +44,8 @@ public class UserServiceImpl implements UserService {
         return mapper.map(user, UserDTO.class);
     }
 
+
+
     @Transactional
     @Override
     public UserDTO saveUser(UserDTO userDTO) {
@@ -83,6 +85,12 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         user.setActive(false);
         userRepository.save(user);
+    }
+
+    @Override
+    public UserDTO findByUsername(String username) {
+        User user = userRepository.findByUsernameAndActiveTrue(username).orElseThrow(EntityNotFoundException::new);
+        return mapper.map(user, UserDTO.class);
     }
 
     private void checkIfUserAlreadyExists(UserDTO userDTO) throws EntityExistsException {
