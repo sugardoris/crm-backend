@@ -18,9 +18,15 @@ public class SubscriptionDTO {
 
     private Long subscriptionTypeId;
 
+    private String subscriptionTypeName;
+
+    private BigDecimal subscriptionTypeDiscount;
+
     private Long subscriberId;
 
     private Long publicationId;
+
+    private String publicationName;
 
     @NotNull(message = "Subscription must have a starting date")
     private LocalDate dateStarted;
