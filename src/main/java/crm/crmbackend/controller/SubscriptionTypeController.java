@@ -47,7 +47,8 @@ public class SubscriptionTypeController {
     }
 
     @PostMapping("/{id}/deactivate")
-    public void deactivateSubscriptionType(@PathVariable Long id) {
+    public ResponseEntity<Void> deactivateSubscriptionType(@PathVariable Long id) {
         subscriptionTypeService.deactivateSubscriptionType(id);
+        return ResponseEntity.noContent().build();
     }
 }

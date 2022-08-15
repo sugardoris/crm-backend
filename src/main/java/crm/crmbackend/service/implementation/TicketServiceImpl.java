@@ -62,7 +62,6 @@ public class TicketServiceImpl implements TicketService {
 
         ticket.setType(ticketDTO.getType());
         ticket.setDescription(ticketDTO.getDescription());
-        ticket.setResolved(ticketDTO.getResolved());
 
         Ticket savedTicket = ticketRepository.save(ticket);
         return mapper.map(savedTicket, TicketDTO.class);

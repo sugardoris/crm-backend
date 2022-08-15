@@ -1,5 +1,6 @@
 package crm.crmbackend.service.implementation;
 
+import crm.crmbackend.dto.ContactInfoDTO;
 import crm.crmbackend.dto.SubscriberDTO;
 import crm.crmbackend.entity.ContactInfo;
 import crm.crmbackend.entity.Subscriber;
@@ -68,8 +69,10 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public SubscriberDTO updateSubscriber(SubscriberDTO subscriberDTO) {
         Subscriber subscriber = subscriberRepository.findById(subscriberDTO.getId()).orElseThrow(EntityNotFoundException::new);
+        ContactInfoDTO contactInfoDTO = subscriberDTO.getContactInfo();
+        contactInfoDTO.setId(subscriber.getContactInfo().getId());
 
-        ContactInfo contactInfo = contactInfoService.saveContactInfo(subscriberDTO.getContactInfo());
+        ContactInfo contactInfo = contactInfoService.saveContactInfo(contactInfoDTO);
         subscriber.setContactInfo(contactInfo);
 
         Subscriber savedSubscriber = subscriberRepository.save(subscriber);

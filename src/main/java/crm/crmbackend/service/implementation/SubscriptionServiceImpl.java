@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -122,7 +123,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     private BigDecimal calculateDiscountedPrice(BigDecimal price, BigDecimal discountPercentage) {
-        BigDecimal discount = price.multiply(discountPercentage).divide(new BigDecimal(100)).setScale(2);
+        BigDecimal discount = price.multiply(discountPercentage).divide(new BigDecimal(100)).setScale(2, RoundingMode.DOWN);
         return price.subtract(discount);
     }
 

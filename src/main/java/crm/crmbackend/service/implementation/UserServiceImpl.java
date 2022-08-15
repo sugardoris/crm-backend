@@ -52,10 +52,7 @@ public class UserServiceImpl implements UserService {
         checkIfUserAlreadyExists(userDTO);
 
         User user = mapper.map(userDTO, User.class);
-
-        if (userDTO.getActive() == null) {
-            user.setActive(true);
-        }
+        user.setActive(true);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(userDTO.getPassword()));
