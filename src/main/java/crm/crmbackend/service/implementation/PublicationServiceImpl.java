@@ -38,6 +38,14 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    public List<PublicationDTO> findAllActive() {
+        return publicationRepository.findAllByActiveTrue()
+                .stream()
+                .map(publication -> mapper.map(publication, PublicationDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public PublicationDTO fetchPublicationDetails(Long id) {
         Publication publication = publicationRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return mapper.map(publication, PublicationDTO.class);

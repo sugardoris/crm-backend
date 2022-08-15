@@ -44,12 +44,12 @@ public class TicketController {
     @PostMapping("/{id}/resolve")
     public ResponseEntity<Void> resolveTicket(@PathVariable Long id) {
         ticketService.resolveTicket(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
         ticketService.deleteTicket(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

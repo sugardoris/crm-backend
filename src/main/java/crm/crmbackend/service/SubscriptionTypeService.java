@@ -8,6 +8,8 @@ public interface SubscriptionTypeService {
 
     List<SubscriptionTypeDTO> findAllSubscriptionTypes();
 
+    List<SubscriptionTypeDTO> findAllActiveSubscriptionTypes();
+
     SubscriptionTypeDTO fetchSubscriptionTypeDetails(Long id);
 
     SubscriptionTypeDTO saveSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO);

@@ -31,6 +31,11 @@ public class PublicationController {
         return ResponseEntity.ok(publicationService.findAll());
     }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<PublicationDTO>> findAllActivePublications() {
+        return ResponseEntity.ok(publicationService.findAllActive());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<PublicationDTO> fetchPublicationDetails(@PathVariable Long id) {
         return ResponseEntity.ok(publicationService.fetchPublicationDetails(id));
@@ -49,6 +54,6 @@ public class PublicationController {
     @PostMapping("/{id}/archive")
     public ResponseEntity<Void> archivePublication(@PathVariable Long id) {
         publicationService.archivePublication(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

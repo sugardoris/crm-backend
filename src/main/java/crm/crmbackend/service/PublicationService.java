@@ -8,6 +8,8 @@ public interface PublicationService {
 
     List<PublicationDTO> findAll();
 
+    List<PublicationDTO> findAllActive();
+
     PublicationDTO fetchPublicationDetails(Long id);
 
     PublicationDTO savePublication(PublicationDTO publicationDTO);

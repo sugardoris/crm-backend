@@ -69,6 +69,6 @@ public class SubscriberController {
     @PostMapping("/{id}/deactivate")
     public ResponseEntity<Void> deactivateSubscriber(@PathVariable Long id) {
         subscriberService.deactivateSubscriber(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

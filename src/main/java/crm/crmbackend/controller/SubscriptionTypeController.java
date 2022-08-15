@@ -31,6 +31,11 @@ public class SubscriptionTypeController {
         return ResponseEntity.ok(subscriptionTypeService.findAllSubscriptionTypes());
     }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<SubscriptionTypeDTO>> findAllActiveSubscriptionTypes() {
+        return ResponseEntity.ok(subscriptionTypeService.findAllActiveSubscriptionTypes());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<SubscriptionTypeDTO> fetchSubscriptionTypeDetails(@PathVariable Long id) {
         return ResponseEntity.ok(subscriptionTypeService.fetchSubscriptionTypeDetails(id));
@@ -49,6 +54,6 @@ public class SubscriptionTypeController {
     @PostMapping("/{id}/deactivate")
     public ResponseEntity<Void> deactivateSubscriptionType(@PathVariable Long id) {
         subscriptionTypeService.deactivateSubscriptionType(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

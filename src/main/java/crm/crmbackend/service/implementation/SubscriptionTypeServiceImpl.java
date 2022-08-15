@@ -37,6 +37,14 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     }
 
     @Override
+    public List<SubscriptionTypeDTO> findAllActiveSubscriptionTypes() {
+        return subscriptionTypeRepository.findAllByActiveTrue()
+                .stream()
+                .map(subscriptionType -> mapper.map(subscriptionType, SubscriptionTypeDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public SubscriptionTypeDTO fetchSubscriptionTypeDetails(Long id) {
         SubscriptionType subscriptionType = subscriptionTypeRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return mapper.map(subscriptionType, SubscriptionTypeDTO.class);

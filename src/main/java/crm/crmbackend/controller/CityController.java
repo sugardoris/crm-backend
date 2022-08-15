@@ -31,7 +31,6 @@ public class CityController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CityDTO> addCity(@Valid @RequestBody CityDTO cityDTO) {
         return ResponseEntity.ok(cityService.addCity(cityDTO));
     }
