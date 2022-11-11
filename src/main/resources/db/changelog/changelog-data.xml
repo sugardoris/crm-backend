@@ -90,6 +90,10 @@
             <column name="password" value="$2a$12$KnHGITe/h9H7ETx.Xw6DAeXqdr2d8id75Ma8B2h2wCJPgCWYsabuK"/>
             <column name="name" value="Admin Admin"/>
             <column name="role" value="ADMIN"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="user">
@@ -97,46 +101,48 @@
             <column name="password" value="$2a$12$cBAJb.tC4HkHKEQqlA4DEuXC8o5ApMPRkRogxR0W7YOao33G7eLwe"/>
             <column name="name" value="Employee Employee"/>
             <column name="role" value="EMPLOYEE"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
     </changeSet>
 
     <changeSet id="20220809-01-publication-data" author="dsugar">
-        <insert tableName="publishing_info">
+        <insert tableName="publication">
+            <column name="name" value="Daily News"/>
             <column name="first_issue_date" value="1989-05-02"/>
             <column name="issue_period" value="DAILY"/>
             <column name="comes_out" value="Every day"/>
             <column name="price" value="1.20"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
-        <insert tableName="publishing_info">
+        <insert tableName="publication">
+            <column name="name" value="Weekly Political"/>
             <column name="first_issue_date" value="2000-03-02"/>
             <column name="issue_period" value="WEEKLY"/>
             <column name="comes_out" value="Every week on wednesdays"/>
             <column name="price" value="2.00"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
-        <insert tableName="publishing_info">
+        <insert tableName="publication">
+            <column name="name" value="IT Magazine"/>
             <column name="first_issue_date" value="2005-07-02"/>
             <column name="issue_period" value="MONTHLY"/>
             <column name="comes_out" value="Every second tuesday of the month"/>
             <column name="price" value="2.50"/>
-        </insert>
-    </changeSet>
-
-    <changeSet id="20220809-02-publication-data" author="dsugar">
-        <insert tableName="publication">
-            <column name="publishing_info_id" value="1"/>
-            <column name="name" value="Daily News"/>
-        </insert>
-
-        <insert tableName="publication">
-            <column name="publishing_info_id" value="2"/>
-            <column name="name" value="Weekly Political"/>
-        </insert>
-
-        <insert tableName="publication">
-            <column name="publishing_info_id" value="3"/>
-            <column name="name" value="IT Magazine"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
     </changeSet>
 
@@ -145,55 +151,62 @@
             <column name="name" value="Default monthly"/>
             <column name="discount" value="15.00"/>
             <column name="subscription_period" value="MONTHLY"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="subscription_type">
             <column name="name" value="Default annually"/>
             <column name="discount" value="25.00"/>
             <column name="subscription_period" value="ANNUALY"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
     </changeSet>
 
     <changeSet id="20220809-01-subscriber-data" author="dsugar">
-        <insert tableName="contact_info">
+        <insert tableName="subscriber">
             <column name="first_name" value="Ana"/>
             <column name="last_name" value="Anić"/>
             <column name="oib" value="12345678901"/>
             <column name="email" value="ana.anic@gmail.com"/>
-            <column name="phone1" value="+385991234567"/>
+            <column name="phone" value="+385991234567"/>
             <column name="billing_address" value="Adresa 123"/>
             <column name="postcode" value="10000"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
-
-        <insert tableName="contact_info">
+        <insert tableName="subscriber">
             <column name="first_name" value="Marko"/>
             <column name="last_name" value="Markotić"/>
             <column name="oib" value="12345678911"/>
             <column name="email" value="marko.markec@gmail.com"/>
-            <column name="phone1" value="+385997654321"/>
+            <column name="phone" value="+385997654321"/>
             <column name="billing_address" value="Adresa 987"/>
             <column name="postcode" value="21000"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
-
-        <insert tableName="contact_info">
+        <insert tableName="subscriber">
             <column name="company_name" value="Firma d.o.o"/>
             <column name="oib" value="12345678922"/>
             <column name="email" value="firma@firma.com"/>
-            <column name="phone1" value="01 234 5678"/>
+            <column name="phone" value="01 234 5678"/>
             <column name="billing_address" value="Adresa Firme 123"/>
+            <column name="legal_entity" valueBoolean="true"/>
             <column name="postcode" value="10410"/>
-        </insert>
-    </changeSet>
-
-    <changeSet id="20220809-02-subscriber-data" author="dsugar">
-        <insert tableName="subscriber">
-            <column name="contact_info_id" value="1"/>
-        </insert>
-        <insert tableName="subscriber">
-            <column name="contact_info_id" value="2"/>
-        </insert>
-        <insert tableName="subscriber">
-            <column name="contact_info_id" value="3"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
     </changeSet>
 
@@ -204,6 +217,10 @@
             <column name="subscriber_id" value="1"/>
             <column name="date_started" value="2020-01-02"/>
             <column name="price" value="30.60"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="subscription">
@@ -212,6 +229,10 @@
             <column name="subscriber_id" value="1"/>
             <column name="date_started" value="2020-01-02"/>
             <column name="price" value="6.80"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="subscription">
@@ -220,6 +241,10 @@
             <column name="subscriber_id" value="2"/>
             <column name="date_started" value="2020-01-02"/>
             <column name="price" value="30.60"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="subscription">
@@ -228,6 +253,10 @@
             <column name="subscriber_id" value="2"/>
             <column name="date_started" value="2020-01-02"/>
             <column name="price" value="22.50"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="subscription">
@@ -236,6 +265,10 @@
             <column name="subscriber_id" value="3"/>
             <column name="date_started" value="2020-01-02"/>
             <column name="price" value="324.00"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="subscription">
@@ -244,6 +277,10 @@
             <column name="subscriber_id" value="3"/>
             <column name="date_started" value="2020-01-02"/>
             <column name="price" value="72.00"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="subscription">
@@ -252,6 +289,10 @@
             <column name="subscriber_id" value="3"/>
             <column name="date_started" value="2020-01-02"/>
             <column name="price" value="22.50"/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
     </changeSet>
 
@@ -260,24 +301,40 @@
             <column name="subscriber_id" value="1"/>
             <column name="type" value="INFO"/>
             <column name="description" value="Nunc nizzle lorizzle, pulvinizzle phat, gangsta eget, vehicula da bomb, diam. Ghetto sizzle leo hizzle sizzle hendrerizzle mattis. Pellentesque yo mamma fizzle izzle eros commodo fo shizzle my nizzle. Etizzle sizzle fermentizzle tellivizzle. Crazy own yo. Maecenizzle gangster metizzle ac dolizzle iaculis auctizzle. Ass sagittizzle dawg urna."/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="ticket">
             <column name="subscriber_id" value="1"/>
             <column name="type" value="COMPLAINT"/>
             <column name="description" value="Nunc nizzle lorizzle, pulvinizzle phat, gangsta eget, vehicula da bomb, diam. Ghetto sizzle leo hizzle sizzle hendrerizzle mattis. Pellentesque yo mamma fizzle izzle eros commodo fo shizzle my nizzle. Etizzle sizzle fermentizzle tellivizzle. Crazy own yo. Maecenizzle gangster metizzle ac dolizzle iaculis auctizzle. Ass sagittizzle dawg urna."/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="ticket">
             <column name="subscriber_id" value="2"/>
             <column name="type" value="NEW"/>
             <column name="description" value="Nunc nizzle lorizzle, pulvinizzle phat, gangsta eget, vehicula da bomb, diam. Ghetto sizzle leo hizzle sizzle hendrerizzle mattis. Pellentesque yo mamma fizzle izzle eros commodo fo shizzle my nizzle. Etizzle sizzle fermentizzle tellivizzle. Crazy own yo. Maecenizzle gangster metizzle ac dolizzle iaculis auctizzle. Ass sagittizzle dawg urna."/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
 
         <insert tableName="ticket">
             <column name="subscriber_id" value="3"/>
             <column name="type" value="PAYMENT"/>
             <column name="description" value="Nunc nizzle lorizzle, pulvinizzle phat, gangsta eget, vehicula da bomb, diam. Ghetto sizzle leo hizzle sizzle hendrerizzle mattis. Pellentesque yo mamma fizzle izzle eros commodo fo shizzle my nizzle. Etizzle sizzle fermentizzle tellivizzle. Crazy own yo. Maecenizzle gangster metizzle ac dolizzle iaculis auctizzle. Ass sagittizzle dawg urna."/>
+            <column name="created_by" value="admin"/>
+            <column name="updated_by" value="admin"/>
+            <column name="create_date" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_update" valueComputed="CURRENT_TIMESTAMP"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

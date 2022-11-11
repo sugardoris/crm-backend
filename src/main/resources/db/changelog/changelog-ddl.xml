@@ -28,11 +28,15 @@
             <column name="created_by" type="varchar(15)" defaultValue="admin">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_by" type="varchar(15)"/>
+            <column name="updated_by" type="varchar(15)" defaultValue="admin">
+                <constraints nullable="false"/>
+            </column>
             <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_update" type="timestamp"/>
+            <column name="last_update" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -49,10 +53,10 @@
     </changeSet>
 
     <changeSet id="20220601-03" author="dsugar">
-        <comment>Create table Contact Info</comment>
-        <createTable tableName="contact_info">
+        <comment>Create table Subscriber</comment>
+        <createTable tableName="subscriber">
             <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_contact_info" />
+                <constraints primaryKey="true" primaryKeyName="pk_subscriber" />
             </column>
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>
@@ -63,10 +67,9 @@
             <column name="email" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="phone1" type="varchar(50)">
+            <column name="phone" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="phone2" type="varchar(50)"/>
             <column name="billing_address" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
@@ -74,35 +77,27 @@
                 <constraints nullable="false" />
             </column>
             <column name="postcode" type="int">
-                <constraints nullable="false" foreignKeyName="fk_info_subscriber_postcode" references="city(postcode)"/>
+                <constraints nullable="false" foreignKeyName="fk_subscriber_postcode" references="city(postcode)"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_update" type="timestamp">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
     <changeSet id="20220601-04" author="dsugar">
-        <comment>Create table Subscriber</comment>
-        <createTable tableName="subscriber">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_subscriber" />
-            </column>
-            <column name="active" type="boolean" defaultValueBoolean="true">
-                <constraints nullable="false"/>
-            </column>
-            <column name="contact_info_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_contact_info" references="contact_info(id)"/>
-            </column>
-            <column name="created_by" type="varchar(15)" defaultValue="admin">
-                <constraints nullable="false"/>
-            </column>
-            <column name="updated_by" type="varchar(15)"/>
-            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_update" type="timestamp"/>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="20220601-05" author="dsugar">
         <comment>Create table Ticket</comment>
         <createTable tableName="ticket">
             <column name="id" type="bigint" autoIncrement="true">
@@ -120,22 +115,29 @@
             <column name="resolved" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="varchar(15)" defaultValue="admin">
+            <column name="created_by" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_by" type="varchar(15)"/>
-            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="updated_by" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_update" type="timestamp"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_update" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="20220601-06" author="dsugar">
-        <comment>Create table Publishing Info</comment>
-        <createTable tableName="publishing_info">
+    <changeSet id="20220601-05" author="dsugar">
+        <comment>Create table Publication</comment>
+        <createTable tableName="publication">
             <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_publishing_info" />
+                <constraints primaryKey="true" primaryKeyName="pk_publication" />
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
             </column>
             <column name="first_issue_date" type="date">
                 <constraints nullable="false"/>
@@ -147,36 +149,25 @@
             <column name="price" type="decimal(6,2)">
                 <constraints nullable="false"/>
             </column>
-        </createTable>
-    </changeSet>
-
-    <changeSet id="20220601-07" author="dsugar">
-        <comment>Create table Publication</comment>
-        <createTable tableName="publication">
-            <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_publication" />
-            </column>
-            <column name="publishing_info_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_info_publication" references="publishing_info(id)"/>
-            </column>
-            <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="varchar(15)" defaultValue="admin">
+            <column name="created_by" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_by" type="varchar(15)"/>
-            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="updated_by" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_update" type="timestamp"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_update" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="20220601-08" author="dsugar">
+    <changeSet id="20220601-06" author="dsugar">
         <comment>Create table Subscription Type</comment>
         <createTable tableName="subscription_type">
             <column name="id" type="bigint" autoIncrement="true">
@@ -185,27 +176,31 @@
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="discount" type="decimal(5,2)">
+            <column name="subscription_period" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="subscription_period" type="varchar(50)">
+            <column name="discount" type="decimal(5,2)">
                 <constraints nullable="false"/>
             </column>
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="varchar(15)" defaultValue="admin">
+            <column name="created_by" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_by" type="varchar(15)"/>
-            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="updated_by" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_update" type="timestamp"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_update" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
-    <changeSet id="20220601-09" author="dsugar">
+    <changeSet id="20220601-07" author="dsugar">
         <comment>Create table Subscription</comment>
         <createTable tableName="subscription">
             <column name="id" type="bigint" autoIncrement="true">
@@ -227,14 +222,18 @@
             <column name="price" type="decimal(6,2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_by" type="varchar(15)" defaultValue="admin">
+            <column name="created_by" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated_by" type="varchar(15)"/>
-            <column name="create_date" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="updated_by" type="varchar(15)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_update" type="timestamp"/>
+            <column name="create_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_update" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
