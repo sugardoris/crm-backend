@@ -14,7 +14,5 @@ public interface PublicationService {
 
     PublicationDTO savePublication(PublicationDTO publicationDTO);
 
-    PublicationDTO updatePublication(PublicationDTO publicationDTO);
-
     void archivePublication(Long id);
 }

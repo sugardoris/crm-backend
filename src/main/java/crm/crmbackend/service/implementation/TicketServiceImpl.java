@@ -58,10 +58,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public TicketDTO updateTicket(TicketDTO ticketDTO) {
-        Ticket ticket = ticketRepository.findById(ticketDTO.getId()).orElseThrow(EntityNotFoundException::new);
-
-        ticket.setType(ticketDTO.getType());
-        ticket.setDescription(ticketDTO.getDescription());
+        Ticket ticket = mapper.map(ticketDTO, Ticket.class);
 
         Ticket savedTicket = ticketRepository.save(ticket);
         return mapper.map(savedTicket, TicketDTO.class);

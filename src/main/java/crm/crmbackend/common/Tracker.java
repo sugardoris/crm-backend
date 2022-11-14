@@ -34,11 +34,11 @@ public abstract class Tracker {
         }
         if (createdBy == null) {
             String currentUser = SecurityUtils.getCurrentUserUsername();
-            if(currentUser != "anonymous") {
+            if (currentUser.equalsIgnoreCase("anonymous")) {
+                throw new AuthenticationCredentialsNotFoundException("Currently logged in user not found.");
+            } else {
                 createdBy = currentUser;
                 updatedBy = createdBy;
-            } else {
-                throw new AuthenticationCredentialsNotFoundException("Currently logged in user not found.");
             }
         }
     }
@@ -47,10 +47,10 @@ public abstract class Tracker {
     protected void preUpdate() throws AuthenticationCredentialsNotFoundException {
         lastUpdate = LocalDateTime.now();
         String currentUser = SecurityUtils.getCurrentUserUsername();
-        if(currentUser != "anonymous") {
-            updatedBy = currentUser;
-        } else {
+        if (currentUser.equalsIgnoreCase("anonymous")) {
             throw new AuthenticationCredentialsNotFoundException("Currently logged in user not found.");
+        } else {
+            updatedBy = currentUser;
         }
     }
 }

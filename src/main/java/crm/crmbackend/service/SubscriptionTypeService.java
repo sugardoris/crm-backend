@@ -14,7 +14,5 @@ public interface SubscriptionTypeService {
 
     SubscriptionTypeDTO saveSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO);
 
-    SubscriptionTypeDTO updateSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO);
-
     void deactivateSubscriptionType(Long id);
 }

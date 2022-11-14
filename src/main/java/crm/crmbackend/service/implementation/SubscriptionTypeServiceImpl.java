@@ -18,13 +18,11 @@ import java.util.stream.Collectors;
 public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
 
     private final SubscriptionTypeRepository subscriptionTypeRepository;
-    private final SubscriptionRepository subscriptionRepository;
     private final ModelMapper mapper;
 
     @Autowired
-    public SubscriptionTypeServiceImpl(SubscriptionTypeRepository subscriptionTypeRepository, SubscriptionRepository subscriptionRepository, ModelMapper mapper) {
+    public SubscriptionTypeServiceImpl(SubscriptionTypeRepository subscriptionTypeRepository, ModelMapper mapper) {
         this.subscriptionTypeRepository = subscriptionTypeRepository;
-        this.subscriptionRepository = subscriptionRepository;
         this.mapper = mapper;
     }
 
@@ -54,20 +52,6 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     @Override
     public SubscriptionTypeDTO saveSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO) {
         SubscriptionType subscriptionType = mapper.map(subscriptionTypeDTO, SubscriptionType.class);
-        subscriptionType.setActive(true);
-
-        SubscriptionType savedSubscriptionType =
-                subscriptionTypeRepository.save(subscriptionType);
-        return mapper.map(savedSubscriptionType, SubscriptionTypeDTO.class);
-    }
-
-    @Override
-    public SubscriptionTypeDTO updateSubscriptionType(SubscriptionTypeDTO subscriptionTypeDTO) {
-        SubscriptionType subscriptionType = subscriptionTypeRepository.findById(subscriptionTypeDTO.getId())
-                .orElseThrow(EntityNotFoundException::new);
-        subscriptionType.setName(subscriptionTypeDTO.getName());
-        subscriptionType.setDiscount(subscriptionTypeDTO.getDiscount());
-        subscriptionType.setSubscriptionPeriod(subscriptionTypeDTO.getSubscriptionPeriod());
 
         SubscriptionType savedSubscriptionType =
                 subscriptionTypeRepository.save(subscriptionType);

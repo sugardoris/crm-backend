@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Transactional
     @Override
     public UserDTO saveUser(UserDTO userDTO) {
@@ -63,15 +62,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateUser(UserDTO userDTO) {
-
         User user = userRepository.findById(userDTO.getId()).orElseThrow(EntityNotFoundException::new);
-
         user.setUsername(userDTO.getUsername());
+        user.setName(userDTO.getName());
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(userDTO.getPassword()));
-
-        user.setName(userDTO.getName());
 
         User savedUser = userRepository.save(user);
         return mapper.map(savedUser, UserDTO.class);

@@ -1,19 +1,22 @@
 package crm.crmbackend.entity;
 
 import crm.crmbackend.common.Tracker;
+import crm.crmbackend.enumeration.PublicationPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -30,11 +33,16 @@ public class Publication extends Tracker {
 
     private String name;
 
-    private Boolean active;
+    private LocalDate firstIssueDate;
 
-    @OneToOne
-    @JoinColumn(name = "publishing_info_id", referencedColumnName = "id")
-    private PublishingInfo publishingInfo;
+    @Enumerated(EnumType.STRING)
+    private PublicationPeriod issuePeriod;
+
+    private String comesOut;
+
+    private BigDecimal price;
+
+    private Boolean active;
 
     @OneToMany(mappedBy = "publication")
     private List<Subscription> subscriptions;

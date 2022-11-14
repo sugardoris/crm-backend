@@ -1,13 +1,10 @@
 package crm.crmbackend.service.implementation;
 
-import crm.crmbackend.dto.ContactInfoDTO;
 import crm.crmbackend.dto.SubscriberDTO;
-import crm.crmbackend.entity.ContactInfo;
 import crm.crmbackend.entity.Subscriber;
 import crm.crmbackend.entity.Subscription;
 import crm.crmbackend.repository.SubscriberRepository;
 import crm.crmbackend.repository.SubscriptionRepository;
-import crm.crmbackend.service.ContactInfoService;
 import crm.crmbackend.service.SubscriberService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +23,13 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     private final SubscriptionRepository subscriptionRepository;
 
-    private final ContactInfoService contactInfoService;
-
     private final ModelMapper mapper;
 
     @Autowired
     public SubscriberServiceImpl(SubscriberRepository subscriberRepository, SubscriptionRepository subscriptionRepository,
-                                 ContactInfoService contactInfoService, ModelMapper mapper) {
+                                 ModelMapper mapper) {
         this.subscriberRepository = subscriberRepository;
         this.subscriptionRepository = subscriptionRepository;
-        this.contactInfoService = contactInfoService;
         this.mapper = mapper;
     }
 
@@ -57,23 +51,6 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public SubscriberDTO saveSubscriber(SubscriberDTO subscriberDTO) {
         Subscriber subscriber = mapper.map(subscriberDTO, Subscriber.class);
-        subscriber.setActive(true);
-
-        ContactInfo contactInfo = contactInfoService.saveContactInfo(subscriberDTO.getContactInfo());
-        subscriber.setContactInfo(contactInfo);
-
-        Subscriber savedSubscriber = subscriberRepository.save(subscriber);
-        return mapper.map(savedSubscriber, SubscriberDTO.class);
-    }
-
-    @Override
-    public SubscriberDTO updateSubscriber(SubscriberDTO subscriberDTO) {
-        Subscriber subscriber = subscriberRepository.findById(subscriberDTO.getId()).orElseThrow(EntityNotFoundException::new);
-        ContactInfoDTO contactInfoDTO = subscriberDTO.getContactInfo();
-        contactInfoDTO.setId(subscriber.getContactInfo().getId());
-
-        ContactInfo contactInfo = contactInfoService.saveContactInfo(contactInfoDTO);
-        subscriber.setContactInfo(contactInfo);
 
         Subscriber savedSubscriber = subscriberRepository.save(subscriber);
         return mapper.map(savedSubscriber, SubscriberDTO.class);

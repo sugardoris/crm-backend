@@ -12,7 +12,5 @@ public interface SubscriberService {
 
     SubscriberDTO saveSubscriber(SubscriberDTO subscriberDTO);
 
-    SubscriberDTO updateSubscriber(SubscriberDTO subscriberDTO);
-
     void deactivateSubscriber(Long id);
 }

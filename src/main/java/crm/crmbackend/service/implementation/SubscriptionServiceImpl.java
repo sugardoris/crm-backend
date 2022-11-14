@@ -21,6 +21,7 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,7 +77,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public SubscriptionDTO updateSubscription(SubscriptionDTO subscriptionDTO) {
         Subscription subscription = subscriptionRepository.findById(subscriptionDTO.getId()).orElseThrow(EntityNotFoundException::new);
-        if (subscription.getSubscriptionType().getId() != subscriptionDTO.getSubscriptionTypeId()) {
+        if (!Objects.equals(subscription.getSubscriptionType().getId(), subscriptionDTO.getSubscriptionTypeId())) {
             SubscriptionType subscriptionType = subscriptionTypeRepository.findById(subscriptionDTO.getSubscriptionTypeId()).orElseThrow(EntityNotFoundException::new);
             subscription.setSubscriptionType(subscriptionType);
             subscription.setPrice(calculatePrice(subscription));
@@ -87,43 +88,34 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     private BigDecimal calculatePrice(Subscription subscription) {
-        PublicationPeriod publicationPeriod = subscription.getPublication().getPublishingInfo().getIssuePeriod();
-        BigDecimal publicationPrice = subscription.getPublication().getPublishingInfo().getPrice();
+        PublicationPeriod publicationPeriod = subscription.getPublication().getIssuePeriod();
+        BigDecimal publicationPrice = subscription.getPublication().getPrice();
         SubscriptionPeriod subscriptionPeriod = subscription.getSubscriptionType().getSubscriptionPeriod();
         BigDecimal discount = subscription.getSubscriptionType().getDiscount();
 
-        BigDecimal price = publicationPrice.multiply(getMonthlyNumberOfIssues(publicationPeriod)).multiply(getNumberOfMonthsInSubscription(subscriptionPeriod));
+        BigDecimal price = publicationPrice.multiply(getMonthlyNumberOfIssues(publicationPeriod)).
+                multiply(getNumberOfMonthsInSubscription(subscriptionPeriod)).setScale(2, RoundingMode.HALF_UP);
         return calculateDiscountedPrice(price, discount);
     }
 
     private BigDecimal getMonthlyNumberOfIssues(PublicationPeriod publicationPeriod) {
-        switch (publicationPeriod) {
-            case DAILY:
-                return new BigDecimal(30);
-            case WEEKLY:
-                return new BigDecimal(4);
-            case MONTHLY:
-                return new BigDecimal(1);
-            default:
-                return new BigDecimal(0);
-        }
+        return switch (publicationPeriod) {
+            case DAILY -> BigDecimal.valueOf(30);
+            case WEEKLY -> BigDecimal.valueOf(4);
+            case MONTHLY -> BigDecimal.valueOf(1);
+        };
     }
 
     private BigDecimal getNumberOfMonthsInSubscription(SubscriptionPeriod subscriptionPeriod) {
-        switch (subscriptionPeriod) {
-            case MONTHLY:
-                return new BigDecimal(1);
-            case BIANNUALY:
-                return new BigDecimal(6);
-            case ANNUALY:
-                return new BigDecimal(12);
-            default:
-                return new BigDecimal(0);
-        }
+        return switch (subscriptionPeriod) {
+            case MONTHLY -> BigDecimal.valueOf(1);
+            case BIANNUALY -> BigDecimal.valueOf(6);
+            case ANNUALY -> BigDecimal.valueOf(12);
+        };
     }
 
     private BigDecimal calculateDiscountedPrice(BigDecimal price, BigDecimal discountPercentage) {
-        BigDecimal discount = price.multiply(discountPercentage).divide(new BigDecimal(100)).setScale(2, RoundingMode.DOWN);
+        BigDecimal discount = price.multiply(discountPercentage).divide(new BigDecimal(100), RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
         return price.subtract(discount);
     }
 

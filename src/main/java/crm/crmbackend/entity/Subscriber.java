@@ -11,8 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
 
@@ -27,11 +27,27 @@ public class Subscriber extends Tracker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean active;
+    private String firstName;
 
-    @OneToOne
-    @JoinColumn(name = "contact_info_id", referencedColumnName = "id")
-    private ContactInfo contactInfo;
+    private String lastName;
+
+    private String companyName;
+
+    private String oib;
+
+    private String email;
+
+    private String phone;
+
+    private String billingAddress;
+
+    private Boolean legalEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "postcode", referencedColumnName = "postcode")
+    private City city;
+
+    private Boolean active;
 
     @OneToMany(mappedBy = "subscriber")
     private List<Ticket> tickets;

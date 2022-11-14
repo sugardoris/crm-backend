@@ -63,7 +63,7 @@ public class SubscriberController {
 
     @PutMapping
     public ResponseEntity<SubscriberDTO> updateSubscriber(@Valid @RequestBody SubscriberDTO subscriberDTO) {
-        return ResponseEntity.ok(subscriberService.updateSubscriber(subscriberDTO));
+        return ResponseEntity.ok(subscriberService.saveSubscriber(subscriberDTO));
     }
 
     @PostMapping("/{id}/deactivate")

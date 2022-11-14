@@ -23,6 +23,6 @@ public class City {
     private String name;
 
     @OneToMany(mappedBy = "city")
-    private List<ContactInfo> subscribers;
+    private List<Subscriber> subscribers;
 
 }
