@@ -48,7 +48,7 @@ public class PublicationController {
 
     @PutMapping
     public ResponseEntity<PublicationDTO> updatePublication(@Valid @RequestBody PublicationDTO publicationDTO) {
-        return ResponseEntity.ok(publicationService.savePublication(publicationDTO));
+        return ResponseEntity.ok(publicationService.updatePublication(publicationDTO));
     }
 
     @PostMapping("/{id}/archive")

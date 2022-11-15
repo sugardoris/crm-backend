@@ -1,6 +1,7 @@
 package crm.crmbackend.service.implementation;
 
 import crm.crmbackend.dto.SubscriberDTO;
+import crm.crmbackend.entity.City;
 import crm.crmbackend.entity.Subscriber;
 import crm.crmbackend.entity.Subscription;
 import crm.crmbackend.repository.SubscriberRepository;
@@ -51,6 +52,24 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public SubscriberDTO saveSubscriber(SubscriberDTO subscriberDTO) {
         Subscriber subscriber = mapper.map(subscriberDTO, Subscriber.class);
+        subscriber.setActive(true);
+
+        Subscriber savedSubscriber = subscriberRepository.save(subscriber);
+        return mapper.map(savedSubscriber, SubscriberDTO.class);
+    }
+
+    @Override
+    public SubscriberDTO updateSubscriber(SubscriberDTO subscriberDTO) {
+        Subscriber subscriber = subscriberRepository.findById(subscriberDTO.getId()).orElseThrow(EntityNotFoundException::new);
+        subscriber.setFirstName(subscriberDTO.getFirstName() != null ? subscriberDTO.getFirstName() : null);
+        subscriber.setLastName(subscriberDTO.getLastName() != null ? subscriberDTO.getLastName() : null);
+        subscriber.setCompanyName(subscriberDTO.getCompanyName() != null ? subscriberDTO.getCompanyName() : null);
+        subscriber.setOib(subscriberDTO.getOib());
+        subscriber.setEmail(subscriberDTO.getEmail());
+        subscriber.setPhone(subscriberDTO.getPhone());
+        subscriber.setBillingAddress(subscriberDTO.getBillingAddress());
+        subscriber.setLegalEntity(subscriberDTO.getLegalEntity());
+        subscriber.setCity(mapper.map(subscriberDTO.getCity(), City.class));
 
         Subscriber savedSubscriber = subscriberRepository.save(subscriber);
         return mapper.map(savedSubscriber, SubscriberDTO.class);

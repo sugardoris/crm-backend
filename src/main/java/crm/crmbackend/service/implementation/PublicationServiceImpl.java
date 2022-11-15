@@ -51,6 +51,20 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public PublicationDTO savePublication(PublicationDTO publicationDTO) {
         Publication publication = mapper.map(publicationDTO, Publication.class);
+        publication.setActive(true);
+
+        Publication savedPublication = publicationRepository.save(publication);
+        return mapper.map(savedPublication, PublicationDTO.class);
+    }
+
+    @Override
+    public PublicationDTO updatePublication(PublicationDTO publicationDTO) {
+        Publication publication = publicationRepository.findById(publicationDTO.getId()).orElseThrow(EntityNotFoundException::new);
+        publication.setName(publicationDTO.getName());
+        publication.setFirstIssueDate(publicationDTO.getFirstIssueDate());
+        publication.setIssuePeriod(publicationDTO.getIssuePeriod());
+        publication.setComesOut(publicationDTO.getComesOut() != null ? publicationDTO.getComesOut() : null);
+        publication.setPrice(publicationDTO.getPrice());
 
         Publication savedPublication = publicationRepository.save(publication);
         return mapper.map(savedPublication, PublicationDTO.class);

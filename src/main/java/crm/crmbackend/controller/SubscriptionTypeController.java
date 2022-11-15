@@ -48,7 +48,7 @@ public class SubscriptionTypeController {
 
     @PutMapping
     public ResponseEntity<SubscriptionTypeDTO> updateSubscriptionType(@Valid @RequestBody SubscriptionTypeDTO subscriptionTypeDTO) {
-        return ResponseEntity.ok(subscriptionTypeService.saveSubscriptionType(subscriptionTypeDTO));
+        return ResponseEntity.ok(subscriptionTypeService.updateSubscriptionType(subscriptionTypeDTO));
     }
 
     @PostMapping("/{id}/deactivate")
